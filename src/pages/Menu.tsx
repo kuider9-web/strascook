@@ -20,9 +20,9 @@ function Menu() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch('https://api-strascook.vercel.app/items');
-        if (!response.ok) {
-					throw new Error('Erreur lors de la récupération des données');
+				const response = await fetch("https://api-strascook.vercel.app/items");
+				if (!response.ok) {
+					throw new Error("Erreur lors de la récupération des données");
 				}
 				const result = await response.json();
 				setMenus(result);
@@ -38,7 +38,7 @@ function Menu() {
 	}, []);
 
 	if (loading) return <p>Chargement...</p>;
-	if (error) return <p style={{ color: 'red' }}>Erreur: {error}</p>;
+	if (error) return <p style={{ color: "red" }}>Erreur: {error}</p>;
 
 	return (
 		<div className="container">
@@ -59,10 +59,18 @@ function Menu() {
 								</ul>
 							</div>
 							<div className="tags">
-								{menu.vegetalien && <span className="tag vegan">Végétalien</span>}
-								{menu.vegetarien && <span className="tag vegetarian">Végétarien</span>}
-								{menu.sans_gluten && <span className="tag gluten-free">Sans gluten</span>}
-								{menu.sans_lactose && <span className="tag lactose-free">Sans lactose</span>}
+								{menu.vegetalien && (
+									<span className="tag vegan">Végétalien</span>
+								)}
+								{menu.vegetarien && (
+									<span className="tag vegetarian">Végétarien</span>
+								)}
+								{menu.sans_gluten && (
+									<span className="tag gluten-free">Sans gluten</span>
+								)}
+								{menu.sans_lactose && (
+									<span className="tag lactose-free">Sans lactose</span>
+								)}
 							</div>
 						</div>
 					</div>
