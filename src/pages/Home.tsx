@@ -1,7 +1,5 @@
-function Home () {
-    return (
-        <p> PPS</p>
-    )
+function Home() {
+	return <p> PPS</p>;
 }
 
-export default Home
+export default Home;
