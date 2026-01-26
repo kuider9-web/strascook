@@ -5,6 +5,8 @@ function Header() {
 		<header className="header">
 			<Link to="/">Home</Link>
 			<Link to="/menu">Menu</Link>
+			<Link to="/galerie">Galerie</Link>
+			<Link to="/reservation">Réservation</Link>
 		</header>
 	);
 }

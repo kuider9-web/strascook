@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Galerie from "./pages/Galerie";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu";
+import Reservation from "./pages/Reservation";
+
 import "./App.css";
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/menu" element={<Menu />} />
+				<Route path="/reservation" element={<Reservation />} />
+				<Route path="/galerie" element={<Galerie />} />
 			</Routes>
 			<Footer />
 		</BrowserRouter>
