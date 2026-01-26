@@ -15,10 +15,7 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"@emotion/react": "latest",
-		"@emotion/styled": "latest",
 		"@mui/icons-material": "latest",
-		"@mui/material": "latest",
 		"react": "latest",
 		"react-dom": "latest",
 		"react-router-dom": "^7.12.0"
