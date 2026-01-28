@@ -7,8 +7,14 @@
 p {
 	font-size: 20px;
 }
+h5 {
+	font-size: 20px;
+	border: black solid;
+	margin: 1em 0;
+}
 h4 {
 	font-size: 24px;
+	margin-top: 1em;
 }
 .hero {
 	margin: 6em 0;
@@ -23,8 +29,9 @@ h4 {
 }
 .choixDesMenu {
 	display: flex;
-	justify-content: space-evenly;
-	margin: 3em 0;
+	justify-content: space-between;
+	width: 60vw;
+	margin: 3em auto;
 }
 .menu {
 	text-decoration: none;
@@ -43,12 +50,12 @@ h4 {
 .contenantImgMenu {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 .contenantMenu {
 	display: flex;
-	justify-content: space-evenly;
-	width: 80vw;
+	justify-content: space-between;
+	width: 60vw;
 	height: auto;
 	box-shadow: 10px 10px 15px 5px #00000040;
 	margin: 2em auto;
@@ -58,12 +65,15 @@ h4 {
 	width: 283px;
 	height: 269px;
 	border-radius: 10px;
+	margin: 2em 0;
 }
 .carteMenu {
 	margin: 0 2em;
 }
 .menuReservation {
 	margin: 2em 0;
+	padding: 1em;
+	cursor: pointer;
 }
 .nomMenu {
 	font-size: 32px;
@@ -77,4 +87,7 @@ h4 {
 }
 .reponse {
 	margin-top: 2em;
+}
+.composantMenu {
+	width: 580px;
 }

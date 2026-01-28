@@ -1,5 +1,7 @@
+import "./Home.css";
+
 function Home() {
-	return <p> PPS</p>;
+	return <div />;
 }
 
 export default Home;
