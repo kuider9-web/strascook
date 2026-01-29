@@ -1,0 +1,202 @@
+.header {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 2;
+}
+
+.header-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+}
+
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem; /* Augmenté de 1rem à 1.1rem */
+    font-weight: 500; /* Augmenté de 400 à 500 pour plus de gras */
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    position: relative;
+    letter-spacing: 0.3px;
+    font-family: Arial, Helvetica, sans-serif; /* Police sans-serif plus moderne */
+}
+
+.header-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+.header-nav a:hover::after {
+    width: 100%;
+}
+
+.header-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: white;
+    max-width: 700px;
+    padding: 0 2rem;
+    background: transparent;
+    /* Assure qu'il n'y a pas de fond */
+}
+
+.header-title {
+    font-size: 4rem;
+    font-weight: 300;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 3px;
+    font-family: 'Georgia', serif;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header-subtitle {
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin: 0 0 2rem 0;
+    letter-spacing: 1px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.header-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000000;
+    text-decoration: none;
+    padding: 0.9rem 2.5rem;
+    border-radius: 2px;
+    font-size: 1rem;
+    font-weight: 500; /* Augmenté de 400 à 500 */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.3px;
+    font-family: Arial, Helvetica, sans-serif; /* Police sans-serif cohérente */
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #f8f8f8;
+}
+
+.btn-secondary {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 300;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: 400px;
+    }
+
+    .header-nav {
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .header-nav a {
+        font-size: 0.9rem;
+    }
+
+    .header-title {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    .header-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .header-actions {
+        gap: 0.7rem;
+    }
+
+    .btn-primary {
+        padding: 0.8rem 2rem;
+        font-size: 0.85rem;
+    }
+
+    .btn-secondary {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        height: 350px;
+    }
+
+    .header-nav {
+        gap: 1rem;
+    }
+
+    .header-nav a {
+        font-size: 0.85rem;
+    }
+
+    .header-title {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .header-subtitle {
+        font-size: 0.85rem;
+    }
+}
