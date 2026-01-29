@@ -1,3 +1,4 @@
-import { Menu } from "@mui/icons-material";
-
-export default Menu
+function Menu() {
+	return <p> PPS</p>;
+}
+export default Menu;
