@@ -328,6 +328,6 @@ function Menu() {
 			</div>
 		</div>
 	);
-}
 
+}
 export default Menu;
