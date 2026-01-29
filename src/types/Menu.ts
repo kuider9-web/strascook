@@ -14,6 +14,7 @@ export interface Plat {
 // Type pour le menu à la carte
 export interface MenuCarte {
 	id: number;
+	prix: string;
 	menu_type: string;
 	entrees: Plat[];
 	plats: Plat[];
@@ -22,6 +23,7 @@ export interface MenuCarte {
 
 // Type pour les menus dégustation (4 ou 5 temps)
 export interface MenuDegustation {
+	prix: string;
 	id: number;
 	menu_type: string;
 	plats: Plat[];
