@@ -1,3 +1,7 @@
+html,
+body #root {
+	height: 100%;
+}
 :root {
 	--font-title: "Georgia", serif;
 	--font-text: "Inter", sans-serif;
@@ -7,9 +11,6 @@
 	color-scheme: light;
 	color: #111;
 	background-color: #d9d9d9;
-
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	font-size: 16px;
+	font-family: var(--font-text);
 }
