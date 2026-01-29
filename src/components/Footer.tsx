@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
-import { FaInstagram, FaFacebookF, FaTiktok } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 
 function Footer() {
 	return (
@@ -14,13 +14,28 @@ function Footer() {
 							<p>Email: gastronomique@gmail.com</p>
 						</div>
 						<div className="footer-social">
-							<a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+							<a
+								href="https://instagram.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="Instagram"
+							>
 								<FaInstagram />
 							</a>
-							<a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+							<a
+								href="https://facebook.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="Facebook"
+							>
 								<FaFacebookF />
 							</a>
-							<a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+							<a
+								href="https://tiktok.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="TikTok"
+							>
 								<FaTiktok />
 							</a>
 						</div>
@@ -44,7 +59,7 @@ function Footer() {
 			</div>
 
 			<div className="footer-bottom">
-				<p>© 2026 Gastronomique  Tous doits réservés</p>
+				<p>© 2026 Gastronomique Tous doits réservés</p>
 			</div>
 		</footer>
 	);

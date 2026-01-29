@@ -19,7 +19,9 @@ function Header() {
 
 			<div className="header-content">
 				<h1 className="header-title">Gastronomique</h1>
-				<p className="header-subtitle">Une cuisine d'auteur, local et moyante.</p>
+				<p className="header-subtitle">
+					Une cuisine d'auteur, local et moyante.
+				</p>
 				<div className="header-actions">
 					<Link to="/reservation" className="btn-primary">
 						Réserver dès maintenant
