@@ -1,216 +1,354 @@
-import { useEffect, useState } from "react";
-import "./Galerie.css";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Galerie.css';
 
-interface GalleryImage {
-	id: number;
-	url: string;
-	title: string;
-	category: "plats" | "restaurant" | "ambiance" | "equipe";
-	alt: string;
+interface Dish {
+  temps?: number;
+  categorie: 'entree' | 'plat' | 'dessert';
+  nom: string;
+  description?: string;
+  ingredients: string[];
+  vegetalien: boolean;
+  vegetarien: boolean;
+  sans_gluten: boolean;
+  sans_lactose: boolean;
+  image_URL: string;
+  prix?: string; // Prix individuel (optionnel pour l'instant)
 }
 
-// Images de la galerie - À remplacer par vos propres URLs Imgur
-const galleryImages: GalleryImage[] = [
-	// Catégorie Plats
-	{
-		id: 1,
-		url: "https://i.imgur.com/placeholder1.jpg",
-		title: "Foie gras poêlé",
-		category: "plats",
-		alt: "Foie gras poêlé avec chutney de figues",
-	},
-	{
-		id: 2,
-		url: "https://i.imgur.com/placeholder2.jpg",
-		title: "Saint-Jacques rôties",
-		category: "plats",
-		alt: "Saint-Jacques rôties sur lit de purée de céleri",
-	},
-	{
-		id: 3,
-		url: "https://i.imgur.com/placeholder3.jpg",
-		title: "Filet de bœuf",
-		category: "plats",
-		alt: "Filet de bœuf rossini avec sauce aux morilles",
-	},
-	{
-		id: 4,
-		url: "https://i.imgur.com/placeholder4.jpg",
-		title: "Dessert signature",
-		category: "plats",
-		alt: "Sphère chocolat avec cœur coulant",
-	},
+interface Menu {
+  id: number;
+  menu_type: string;
+  prix?: string;
+  entrees: Dish[];
+  plats: Dish[];
+  desserts: Dish[];
+}
 
-	// Catégorie Restaurant
-	{
-		id: 5,
-		url: "https://i.imgur.com/placeholder5.jpg",
-		title: "Salle principale",
-		category: "restaurant",
-		alt: "Vue de la salle de restaurant avec tables dressées",
-	},
-	{
-		id: 6,
-		url: "https://i.imgur.com/placeholder6.jpg",
-		title: "Cuisine ouverte",
-		category: "restaurant",
-		alt: "Cuisine professionnelle visible depuis la salle",
-	},
-
-	// Catégorie Ambiance
-	{
-		id: 7,
-		url: "https://i.imgur.com/placeholder7.jpg",
-		title: "Ambiance nocturne",
-		category: "ambiance",
-		alt: "Restaurant illuminé en soirée",
-	},
-	{
-		id: 8,
-		url: "https://i.imgur.com/placeholder8.jpg",
-		title: "Terrasse",
-		category: "ambiance",
-		alt: "Terrasse extérieure du restaurant",
-	},
-
-	// Catégorie Équipe
-	{
-		id: 9,
-		url: "https://i.imgur.com/placeholder9.jpg",
-		title: "Chef et brigade",
-		category: "equipe",
-		alt: "Le chef et son équipe en cuisine",
-	},
-];
+type FilterType = 'all' | 'vegetarien' | 'vegetalien' | 'sans_gluten' | 'sans_lactose';
+type CategoryFilter = 'all' | 'entree' | 'plat' | 'dessert';
 
 const Galerie = () => {
-	const [selectedCategory, setSelectedCategory] = useState<
-		"all" | GalleryImage["category"]
-	>("all");
-	const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [_menus, setMenus] = useState<Menu[]>([]);
+  const [allDishes, setAllDishes] = useState<Dish[]>([]);
+  const [filteredDishes, setFilteredDishes] = useState<Dish[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  const [dietaryFilter, setDietaryFilter] = useState<FilterType>('all');
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all');
+  const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
 
-	// Filtrer les images selon la catégorie sélectionnée
-	const filteredImages =
-		selectedCategory === "all"
-			? galleryImages
-			: galleryImages.filter((img) => img.category === selectedCategory);
+  // Récupération des données de l'API
+  useEffect(() => {
+    const fetchDishes = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('https://api-strascook.vercel.app/items');
+        
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des données');
+        }
+        
+        const data: Menu[] = await response.json();
+        setMenus(data);
+        
+        // Extraire tous les plats de tous les menus
+        const dishes: Dish[] = [];
+        for (const menu of data) {
+          dishes.push(...menu.entrees, ...menu.plats, ...menu.desserts);
+        }
+        
+        setAllDishes(dishes);
+        setFilteredDishes(dishes);
+        setLoading(false);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+        setLoading(false);
+      }
+    };
 
-	const categoryLabels = {
-		all: "Tout",
-		plats: "Nos Plats",
-		restaurant: "Le Restaurant",
-		ambiance: "Ambiance",
-		equipe: "Notre Équipe",
-	};
+    fetchDishes();
+  }, []);
 
-	// Gérer la fermeture du modal avec la touche Escape
-	useEffect(() => {
-		const handleEscape = (e: KeyboardEvent) => {
-			if (e.key === "Escape" && selectedImage) {
-				setSelectedImage(null);
-			}
-		};
+  // Filtrage des plats
+  useEffect(() => {
+    let filtered = [...allDishes];
 
-		if (selectedImage) {
-			document.addEventListener("keydown", handleEscape);
-			// Empêcher le scroll du body quand le modal est ouvert
-			document.body.style.overflow = "hidden";
-		}
+    // Filtre diététique
+    if (dietaryFilter !== 'all') {
+      filtered = filtered.filter(dish => {
+        switch (dietaryFilter) {
+          case 'vegetarien':
+            return dish.vegetarien;
+          case 'vegetalien':
+            return dish.vegetalien;
+          case 'sans_gluten':
+            return dish.sans_gluten;
+          case 'sans_lactose':
+            return dish.sans_lactose;
+          default:
+            return true;
+        }
+      });
+    }
 
-		return () => {
-			document.removeEventListener("keydown", handleEscape);
-			document.body.style.overflow = "unset";
-		};
-	}, [selectedImage]);
+    // Filtre par catégorie
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(dish => dish.categorie === categoryFilter);
+    }
 
-	return (
-		<div className="galerie-container">
-			<header className="galerie-header">
-				<h1>Galerie</h1>
-				<p className="galerie-subtitle">
-					Découvrez l'univers visuel de StrassCook à travers nos créations
-					culinaires et notre cadre raffiné
-				</p>
-			</header>
+    setFilteredDishes(filtered);
+  }, [dietaryFilter, categoryFilter, allDishes]);
 
-			{/* Filtres de catégories */}
-			<nav className="galerie-filters">
-				{(
-					Object.keys(categoryLabels) as Array<keyof typeof categoryLabels>
-				).map((category) => (
-					<button
-						key={category}
-						className={`filter-button ${selectedCategory === category ? "active" : ""}`}
-						onClick={() => setSelectedCategory(category)}
-						type="button"
-					>
-						{categoryLabels[category]}
-					</button>
-				))}
-			</nav>
+  // Gestion du modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedDish) {
+        setSelectedDish(null);
+      }
+    };
 
-			{/* Grille d'images */}
-			<div className="galerie-grid">
-				{filteredImages.map((image) => (
-					<button
-						key={image.id}
-						className="galerie-item"
-						onClick={() => setSelectedImage(image)}
-						type="button"
-						aria-label={`Voir ${image.title} en grand`}
-					>
-						<img src={image.url} alt={image.alt} loading="lazy" />
-						<div className="galerie-overlay">
-							<h3>{image.title}</h3>
-						</div>
-					</button>
-				))}
-			</div>
+    if (selectedDish) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
 
-			{/* Modal pour afficher l'image en grand */}
-			{selectedImage && (
-				<div
-					className="galerie-modal"
-					role="dialog"
-					aria-modal="true"
-					aria-labelledby="modal-title"
-				>
-					{/* Overlay cliquable pour fermer */}
-					<button
-						className="modal-overlay"
-						onClick={() => setSelectedImage(null)}
-						type="button"
-						aria-label="Fermer la galerie"
-					/>
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedDish]);
 
-					<div className="modal-content">
-						<button
-							className="modal-close"
-							onClick={() => setSelectedImage(null)}
-							type="button"
-							aria-label="Fermer"
-						>
-							×
-						</button>
-						<img src={selectedImage.url} alt={selectedImage.alt} />
-						<div className="modal-info">
-							<h2 id="modal-title">{selectedImage.title}</h2>
-							<p className="modal-category">
-								{categoryLabels[selectedImage.category]}
-							</p>
-						</div>
-					</div>
-				</div>
-			)}
+  const dietaryLabels = {
+    all: 'Tous les plats',
+    vegetarien: '🌱 Végétarien',
+    vegetalien: '🥬 Végétalien',
+    sans_gluten: '🌾 Sans Gluten',
+    sans_lactose: '🥛 Sans Lactose'
+  };
 
-			{/* Message si aucune image */}
-			{filteredImages.length === 0 && (
-				<div className="galerie-empty">
-					<p>Aucune image disponible dans cette catégorie.</p>
-				</div>
-			)}
-		</div>
-	);
+  const categoryLabels = {
+    all: 'Toutes catégories',
+    entree: 'Entrées',
+    plat: 'Plats',
+    dessert: 'Desserts'
+  };
+
+  // Fonction pour obtenir les badges d'un plat
+  const getDishBadges = (dish: Dish) => {
+    const badges = [];
+    if (dish.vegetalien) badges.push({ label: '🥬 Végétalien', color: 'green' });
+    else if (dish.vegetarien) badges.push({ label: '🌱 Végétarien', color: 'lightgreen' });
+    if (dish.sans_gluten) badges.push({ label: '🌾 Sans Gluten', color: 'orange' });
+    if (dish.sans_lactose) badges.push({ label: '🥛 Sans Lactose', color: 'blue' });
+    return badges;
+  };
+
+  if (loading) {
+    return (
+      <div className="galerie-container">
+        <div className="galerie-loading">
+          <p>Chargement de nos créations culinaires...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="galerie-container">
+        <div className="galerie-error">
+          <p>❌ {error}</p>
+          <button type="button" onClick={() => window.location.reload()}>
+            Réessayer
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="galerie-container">
+      <header className="galerie-header">
+        <h1>Notre Galerie Culinaire</h1>
+        <p className="galerie-subtitle">
+          Découvrez nos créations gastronomiques, alliant saveurs raffinées et présentation artistique
+        </p>
+      </header>
+
+      {/* Filtres diététiques */}
+      <nav className="galerie-filters">
+        <div className="filter-group">
+          <h3>Préférences alimentaires</h3>
+          <div className="filter-buttons">
+            {(Object.keys(dietaryLabels) as FilterType[]).map((filter) => (
+              <button
+                key={filter}
+                className={`filter-button ${dietaryFilter === filter ? 'active' : ''}`}
+                onClick={() => setDietaryFilter(filter)}
+                type="button"
+              >
+                {dietaryLabels[filter]}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Filtres par catégorie */}
+        <div className="filter-group">
+          <h3>Type de plat</h3>
+          <div className="filter-buttons">
+            {(Object.keys(categoryLabels) as CategoryFilter[]).map((category) => (
+              <button
+                key={category}
+                className={`filter-button ${categoryFilter === category ? 'active' : ''}`}
+                onClick={() => setCategoryFilter(category)}
+                type="button"
+              >
+                {categoryLabels[category]}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Compteur de résultats */}
+      <div className="results-count">
+        <p>{filteredDishes.length} {filteredDishes.length > 1 ? 'plats' : 'plat'} disponible{filteredDishes.length > 1 ? 's' : ''}</p>
+      </div>
+
+      {/* Grille d'images */}
+      <div className="galerie-grid">
+        {filteredDishes.map((dish, index) => (
+          <button
+            key={`${dish.nom}-${index}`}
+            className="galerie-item"
+            onClick={() => setSelectedDish(dish)}
+            type="button"
+            aria-label={`Voir les détails de ${dish.nom}`}
+          >
+            <img 
+              src={dish.image_URL} 
+              alt={dish.nom}
+              loading="lazy"
+            />
+            <div className="galerie-overlay">
+              <h3>{dish.nom}</h3>
+              <div className="dish-badges-preview">
+                {getDishBadges(dish).slice(0, 2).map((badge) => (
+                  <span key={badge.label} className="badge-mini">
+                    {badge.label.split(' ')[0]}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Message si aucune image */}
+      {filteredDishes.length === 0 && (
+        <div className="galerie-empty">
+          <p>😔 Aucun plat ne correspond à vos critères.</p>
+          <button 
+            type="button"
+            onClick={() => {
+              setDietaryFilter('all');
+              setCategoryFilter('all');
+            }}
+            className="reset-filters-button"
+          >
+            Réinitialiser les filtres
+          </button>
+        </div>
+      )}
+
+      {/* Modal détaillé */}
+      {selectedDish && (
+        <div 
+          className="galerie-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <button
+            className="modal-overlay"
+            onClick={() => setSelectedDish(null)}
+            type="button"
+            aria-label="Fermer les détails"
+          />
+          
+          <div className="modal-content-detailed">
+            <button 
+              className="modal-close"
+              onClick={() => setSelectedDish(null)}
+              type="button"
+              aria-label="Fermer"
+            >
+              ×
+            </button>
+
+            <div className="modal-image-section">
+              <img 
+                src={selectedDish.image_URL} 
+                alt={selectedDish.nom}
+              />
+            </div>
+
+            <div className="modal-details">
+              <div className="modal-header">
+                <h2 id="modal-title">{selectedDish.nom}</h2>
+                <span className="dish-category">
+                  {categoryLabels[selectedDish.categorie]}
+                </span>
+              </div>
+
+              {selectedDish.description && (
+                <p className="dish-description">{selectedDish.description}</p>
+              )}
+
+              {/* Badges diététiques */}
+              <div className="dish-badges">
+                {getDishBadges(selectedDish).map((badge) => (
+                  <span 
+                    key={badge.label} 
+                    className="badge"
+                    style={{ backgroundColor: badge.color }}
+                  >
+                    {badge.label}
+                  </span>
+                ))}
+              </div>
+
+              {/* Ingrédients */}
+              <div className="dish-ingredients">
+                <h3>Ingrédients</h3>
+                <ul>
+                  {selectedDish.ingredients.map((ingredient, idx) => (
+                    <li key={idx}>{ingredient}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Prix (si disponible) */}
+              {selectedDish.prix && (
+                <div className="dish-price">
+                  <span className="price-label">Prix :</span>
+                  <span className="price-value">{selectedDish.prix}</span>
+                </div>
+              )}
+
+              {/* Bouton Réserver */}
+              <Link to="/reservation" className="reservation-button">
+                Réserver une table
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Galerie;
