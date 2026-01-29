@@ -4,6 +4,12 @@ import "./Header.css";
 function Header() {
 	return (
 		<header className="header">
+			<nav className="header-nav">
+				<Link to="/">Home</Link>
+				<Link to="/menu">Menu</Link>
+				<Link to="/galerie">Galerie</Link>
+				<Link to="/reservation">Réservation</Link>
+			</nav>
 			<video className="header-video" autoPlay loop muted playsInline>
 				<source src="/video_header.mp4" type="video/mp4" />
 				Votre navigateur ne supporte pas la vidéo.
