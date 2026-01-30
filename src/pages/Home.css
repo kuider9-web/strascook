@@ -1,0 +1,51 @@
+.service {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 1em 0;
+}
+.clocheConteneur {
+	display: flex;
+	align-items: center;
+}
+.cloche {
+	height: 40px;
+	width: 40px;
+	margin-right: 1em;
+}
+.selectionNav {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 3em 0;
+}
+.menuNav {
+	text-decoration: none;
+	box-shadow: 10px 10px 15px 5px #00000040;
+	width: 331px;
+	height: 522px;
+	padding: 1.5em 0;
+	text-align: center;
+}
+.imgNav {
+	width: 273px;
+	height: 269px;
+}
+.titreMenuNav {
+	color: black;
+	font-size: 32px;
+}
+.description {
+	color: black;
+}
+.aPropo {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 60vw;
+	height: auto;
+	box-shadow: 10px 10px 15px 5px #00000040;
+	margin: 2em auto;
+	padding: 2em;
+}
+.concept {
+	font-size: 32px;
+}
