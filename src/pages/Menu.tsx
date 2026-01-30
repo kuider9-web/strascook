@@ -125,7 +125,7 @@ function Menu() {
 
 	return (
 		<div>
-			<div className="hero">
+			<div className="enTete">
 				<h1>Menus et Tarifs</h1>
 				<p>
 					Les menus évoluent selon les arrivages et les saisons:
@@ -133,13 +133,6 @@ function Menu() {
 					fleurs, herbes et légumes éphémères s'invitent selon leur
 					disponibilité
 				</p>
-				<button
-					type="button"
-					onClick={() => navigate("/reservation")}
-					className="menuReservation"
-				>
-					Réserver dès maintenant
-				</button>
 			</div>
 			<div className="presentation">
 				<h2>Une expérience culinaire à la carte</h2>
