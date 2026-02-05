@@ -52,7 +52,7 @@ function Menu() {
 
 	const getOptimalImageCount = (menu: MenuType): number => {
 		const totalPlats = getPlatsCount(menu);
-		
+
 		if (totalPlats <= 4) {
 			return 3;
 		} else if (totalPlats <= 8) {
@@ -64,7 +64,7 @@ function Menu() {
 
 	const getMenuImages = (menu: MenuType): Plat[] => {
 		const imageCount = getOptimalImageCount(menu);
-		
+
 		if (isMenuCarte(menu)) {
 			const allPlats = [...menu.entrees, ...menu.plats, ...menu.desserts];
 			return allPlats.slice(0, imageCount);
@@ -187,11 +187,11 @@ function Menu() {
 			{menus.map((menu) => {
 				const menuImages = getMenuImages(menu);
 				const imageCount = menuImages.length;
-				
+
 				return (
-					<div 
+					<div
 						className={`contenantMenu contenantMenu--${imageCount}-images`}
-						id={`menu-${menu.id}`} 
+						id={`menu-${menu.id}`}
 						key={menu.id}
 					>
 						{/* COLONNE GAUCHE - Images + Info Menu */}
@@ -207,7 +207,7 @@ function Menu() {
 									/>
 								))}
 							</div>
-							
+
 							{/* Carte menu en dessous des images */}
 							<div className="carteMenu">
 								<h3 className="nomMenu">{menu.menu_type}</h3>
