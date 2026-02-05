@@ -1,91 +1,466 @@
+/* ========================================
+   VARIABLES CSS (COULEURS ACCENT)
+   ======================================== */
+:root {
+	--accent-color: #c9a961;
+	--accent-hover: #b89650;
+	--accent-light: #e5d4a6;
+	--black: #000000;
+	--dark-gray: #333333;
+	--medium-gray: #666666;
+	--light-gray: #f5f5f5;
+	--border-color: #ddd;
+	--shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
+	--shadow-md: 0 8px 20px rgba(0, 0, 0, 0.18);
+	--shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes drawLine {
+	from {
+		width: 0;
+	}
+	to {
+		width: 100%;
+	}
+}
+
+/* ========================================
+   PAGE PRINCIPALE
+   ======================================== */
 .page-reservation {
-	background: #c8c3b8;
-	padding: 40px 20px;
+	background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+	padding: 3rem 2rem;
 	min-height: 100vh;
 }
 
+/* ========================================
+   SECTION HAUTE
+   ======================================== */
 .haut {
 	display: flex;
-	gap: 30px;
+	gap: 3rem;
 	justify-content: center;
-	margin-bottom: 30px;
+	align-items: flex-start;
+	margin-bottom: 5rem;
+	max-width: 1400px;
+	margin-left: auto;
+	margin-right: auto;
+	animation: fadeInUp 0.8s ease-out;
 }
 
+/* ========================================
+   INTRO
+   ======================================== */
 .intro {
-	width: 280px;
-	font-size: 0.85rem;
+	width: 400px;
+	animation: slideInLeft 0.8s ease-out 0.2s backwards;
+}
+
+.intro h2 {
+	font-family: "Georgia", serif;
+	font-size: 2.5rem;
+	font-weight: 300;
+	letter-spacing: 2px;
+	color: var(--black);
+	margin: 0 0 2rem 0;
+	position: relative;
+	padding-bottom: 1rem;
+}
+
+.intro h2::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 80px;
+	height: 3px;
+	background: linear-gradient(
+		to right,
+		var(--accent-color),
+		var(--accent-light)
+	);
+	border-radius: 2px;
+	animation: drawLine 0.8s ease-out 0.5s backwards;
+}
+
+.intro p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
+	letter-spacing: 0.3px;
+	line-height: 1.8;
+	color: var(--dark-gray);
+	margin-bottom: 1.5rem;
+}
+
+.intro p:last-child {
+	font-weight: 500;
+	color: var(--black);
+	padding: 1.2rem;
+	background: linear-gradient(135deg, #ffffff, #f8f9fa);
+	border-left: 4px solid var(--accent-color);
+	border-radius: 4px;
+	box-shadow: var(--shadow-sm);
 	line-height: 1.6;
 }
-/* Calendrier à changer, Calendly est dégueulasse */
+
+/* ========================================
+   CALENDRIER
+   ======================================== */
 .calendrier {
-	width: 550px;
+	width: 600px;
 	height: 650px;
 	background: white;
 	border-radius: 8px;
 	overflow: hidden;
+	box-shadow: var(--shadow-md);
+	transition: all 0.5s ease;
+	position: relative;
+	animation: slideInRight 0.8s ease-out 0.3s backwards;
 }
-/*Formulaire */
+
+.calendrier::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: linear-gradient(
+		90deg,
+		var(--accent-color),
+		var(--accent-light),
+		var(--accent-color)
+	);
+	z-index: 10;
+}
+
+.calendrier:hover {
+	box-shadow: var(--shadow-lg);
+	transform: translateY(-5px);
+}
+
+/* ========================================
+   FORMULAIRE
+   ======================================== */
 form {
 	background: white;
-	padding: 25px;
+	padding: 3rem;
 	border-radius: 8px;
-	max-width: 860px;
+	max-width: 900px;
 	margin: 0 auto;
+	box-shadow: var(--shadow-md);
+	position: relative;
+	overflow: hidden;
+	animation: scaleIn 0.8s ease-out 0.4s backwards;
+}
+
+form::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: linear-gradient(
+		90deg,
+		var(--accent-color),
+		var(--accent-light),
+		var(--accent-color)
+	);
 }
 
 form label {
 	display: block;
-	margin-bottom: 12px;
+	margin-bottom: 1.5rem;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--dark-gray);
+	letter-spacing: 0.3px;
+	transition: color 0.3s ease;
+}
+
+form label:focus-within {
+	color: var(--accent-color);
 }
 
 form input,
 form select,
 form textarea {
 	width: 100%;
-	padding: 10px;
-	margin-top: 4px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
+	padding: 0.9rem 1.2rem;
+	margin-top: 0.5rem;
+	border: 2px solid var(--border-color);
+	border-radius: 6px;
 	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.95rem;
+	color: var(--dark-gray);
+	background-color: white;
+	transition: all 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+	outline: none;
+	border-color: var(--accent-color);
+	box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.1);
+	transform: translateY(-2px);
+}
+
+form input:hover,
+form select:hover,
+form textarea:hover {
+	border-color: var(--accent-hover);
 }
 
 form textarea {
-	height: 80px;
+	height: 120px;
+	resize: vertical;
+	line-height: 1.6;
+}
+
+form select {
+	cursor: pointer;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c9a961' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 1rem center;
+	background-size: 12px;
+	appearance: none;
+	padding-right: 3rem;
 }
 
 .ligne {
 	display: flex;
-	gap: 20px;
+	gap: 2rem;
+	margin-bottom: 0;
 }
 
 .ligne label {
 	flex: 1;
+	margin-bottom: 1.5rem;
 }
 
 form button {
-	background: rgb(75, 85, 72);
+	width: 100%;
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
 	color: white;
-	padding: 10px 20px;
+	padding: 1.2rem 2rem;
 	border: none;
-	border-radius: 4px;
+	border-radius: 8px;
 	cursor: pointer;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.1rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	transition: all 0.4s ease;
+	box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+	position: relative;
+	overflow: hidden;
+	margin-top: 1rem;
+}
+
+form button::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
+	transform: translate(-50%, -50%);
+	transition:
+		width 0.6s ease,
+		height 0.6s ease;
+}
+
+form button:hover::before {
+	width: 400px;
+	height: 400px;
 }
 
 form button:hover {
-	background: rgb(60, 70, 57);
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+}
+
+form button:active {
+	transform: translateY(-1px);
+}
+
+form button:focus {
+	outline: 3px solid var(--accent-light);
+	outline-offset: 3px;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+	.haut {
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+
+	.intro {
+		width: 350px;
+	}
+
+	.intro h2 {
+		font-size: 2rem;
+	}
+
+	.calendrier {
+		width: 550px;
+	}
+
+	form {
+		padding: 2.5rem;
+	}
 }
 
 @media (max-width: 900px) {
+	.page-reservation {
+		padding: 2rem 1rem;
+	}
+
 	.haut {
 		flex-direction: column;
 		align-items: center;
+		margin-bottom: 3rem;
 	}
+
 	.intro {
 		width: 100%;
-		max-width: 550px;
+		max-width: 600px;
+		text-align: center;
 	}
+
+	.intro h2 {
+		font-size: 1.8rem;
+	}
+
+	.intro h2::after {
+		left: 50%;
+		transform: translateX(-50%);
+		width: 60px;
+	}
+
+	.intro p:last-child {
+		text-align: left;
+	}
+
+	.calendrier {
+		width: 100%;
+		max-width: 600px;
+		height: 600px;
+	}
+
+	form {
+		padding: 2rem 1.5rem;
+	}
+
 	.ligne {
 		flex-direction: column;
 		gap: 0;
+	}
+}
+
+@media (max-width: 480px) {
+	.intro h2 {
+		font-size: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.intro h2::after {
+		width: 50px;
+		height: 2px;
+	}
+
+	.intro p {
+		font-size: 0.9rem;
+	}
+
+	.calendrier {
+		height: 550px;
+	}
+
+	form {
+		padding: 1.5rem 1rem;
+	}
+
+	form label {
+		font-size: 0.9rem;
+	}
+
+	form input,
+	form select,
+	form textarea {
+		padding: 0.75rem 0.9rem;
+		font-size: 0.85rem;
+	}
+
+	form button {
+		padding: 0.9rem 1.2rem;
+		font-size: 0.95rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
 	}
 }

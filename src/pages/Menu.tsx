@@ -50,12 +50,26 @@ function Menu() {
 		return menuImages[menu.id] || plat;
 	};
 
-	const getFirstTwoImages = (menu: MenuType): Plat[] => {
+	const getOptimalImageCount = (menu: MenuType): number => {
+		const totalPlats = getPlatsCount(menu);
+
+		if (totalPlats <= 4) {
+			return 3;
+		} else if (totalPlats <= 8) {
+			return 4;
+		} else {
+			return 6;
+		}
+	};
+
+	const getMenuImages = (menu: MenuType): Plat[] => {
+		const imageCount = getOptimalImageCount(menu);
+
 		if (isMenuCarte(menu)) {
 			const allPlats = [...menu.entrees, ...menu.plats, ...menu.desserts];
-			return allPlats.slice(0, 2);
+			return allPlats.slice(0, imageCount);
 		}
-		return menu.plats.slice(0, 2);
+		return menu.plats.slice(0, imageCount);
 	};
 
 	const renderPlats = (menu: MenuType) => {
@@ -171,32 +185,44 @@ function Menu() {
 				)}
 			</div>
 			{menus.map((menu) => {
-				const firstTwoPlats = getFirstTwoImages(menu);
+				const menuImages = getMenuImages(menu);
+				const imageCount = menuImages.length;
+
 				return (
-					<div className="contenantMenu" id={`menu-${menu.id}`} key={menu.id}>
-						<div className="contenantImgMenu">
-							{firstTwoPlats.map((plat, index) => (
-								<img
-									key={`${plat.nom}-${index}`}
-									src={plat.image_URL}
-									alt={plat.nom}
-									className="imgMenu"
-								/>
-							))}
+					<div
+						className={`contenantMenu contenantMenu--${imageCount}-images`}
+						id={`menu-${menu.id}`}
+						key={menu.id}
+					>
+						{/* COLONNE GAUCHE - Images + Info Menu */}
+						<div>
+							{/* Images en grille */}
+							<div className="contenantImgMenu">
+								{menuImages.map((plat, index) => (
+									<img
+										key={`${plat.nom}-${index}`}
+										src={plat.image_URL}
+										alt={plat.nom}
+										className="imgMenu"
+									/>
+								))}
+							</div>
+
+							{/* Carte menu en dessous des images */}
+							<div className="carteMenu">
+								<h3 className="nomMenu">{menu.menu_type}</h3>
+								<p className="prix">{menu.prix}</p>
+								<button
+									type="button"
+									onClick={() => navigate("/reservation")}
+									className="menuReservation"
+								>
+									Réserver dès maintenant
+								</button>
+							</div>
 						</div>
 
-						<div className="carteMenu">
-							<h3 className="nomMenu">{menu.menu_type}</h3>
-							<p className="prix">{menu.prix}</p>
-							<button
-								type="button"
-								onClick={() => navigate("/reservation")}
-								className="menuReservation"
-							>
-								Réserver dès maintenant
-							</button>
-						</div>
-
+						{/* COLONNE DROITE - Liste des plats */}
 						<div className="composantMenu">
 							{getPlatsCount(menu) > 0 ? (
 								renderPlats(menu)

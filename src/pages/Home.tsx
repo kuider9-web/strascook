@@ -45,8 +45,8 @@ function Home() {
 					<br />
 					Pas de mise en scène inutile :<br />
 					les plats sont au cœur de l'expérience, accompagnés d'une ambiance
-					chaleureuse et <br />
-					authentique, fidèle à l'esprit de la cuisine à domicile.
+					chaleureuse et authentique, fidèle à l'esprit de la cuisine à
+					domicile.
 				</p>
 
 				<div className="service">
