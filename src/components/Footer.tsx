@@ -44,7 +44,7 @@ function Footer() {
 					<div className="footer-section footer-nav">
 						<div className="footer-column">
 							<Link to="/">Accueil</Link>
-							<Link to="/menu">Les Menues</Link>
+							<Link to="/menu">Les Menus</Link>
 							<Link to="/galerie">Galeries</Link>
 							<Link to="/reservation">Réservations</Link>
 						</div>
