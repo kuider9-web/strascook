@@ -1,0 +1,199 @@
+.menu-management {
+	padding: 20px;
+}
+
+.menu-management h2 {
+	font-size: 1.8rem;
+	margin-bottom: 30px;
+	color: #333;
+}
+
+.loading {
+	text-align: center;
+	padding: 40px;
+	font-size: 1.2rem;
+	color: #666;
+}
+
+.success-message {
+	background: #4caf50;
+	color: white;
+	padding: 15px 20px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	font-size: 1.1rem;
+	text-align: center;
+	animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.menu-form {
+	background: #f8f9fa;
+	padding: 25px;
+	border-radius: 10px;
+	margin-bottom: 40px;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 8px;
+	color: #555;
+	font-size: 1rem;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 12px 15px;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	font-size: 1rem;
+	transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: #667eea;
+}
+
+.btn-primary {
+	background: #667eea;
+	color: white;
+	padding: 15px 30px;
+	border: none;
+	border-radius: 8px;
+	font-size: 1.1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s;
+	margin-right: 10px;
+}
+
+.btn-primary:hover {
+	background: #5568d3;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+	background: #6c757d;
+	color: white;
+	padding: 15px 30px;
+	border: none;
+	border-radius: 8px;
+	font-size: 1.1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+	background: #5a6268;
+}
+
+.menu-gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 25px;
+	margin-top: 30px;
+}
+
+.menu-card {
+	background: white;
+	border: 2px solid #e0e0e0;
+	border-radius: 12px;
+	overflow: hidden;
+	transition: all 0.3s;
+}
+
+.menu-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.menu-card img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.menu-info {
+	padding: 15px;
+}
+
+.menu-info h3 {
+	margin: 0 0 10px 0;
+	font-size: 1.3rem;
+	color: #333;
+}
+
+.price {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #667eea;
+	margin: 10px 0;
+}
+
+.allergens {
+	color: #ff9800;
+	font-size: 0.9rem;
+	margin: 5px 0;
+}
+
+.menu-actions {
+	display: flex;
+	gap: 10px;
+	padding: 15px;
+	border-top: 1px solid #e0e0e0;
+}
+
+.btn-edit,
+.btn-delete {
+	flex: 1;
+	padding: 12px;
+	border: none;
+	border-radius: 6px;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.btn-edit {
+	background: #2196f3;
+	color: white;
+}
+
+.btn-edit:hover {
+	background: #1976d2;
+}
+
+.btn-delete {
+	background: #f44336;
+	color: white;
+}
+
+.btn-delete:hover {
+	background: #d32f2f;
+}
+
+.no-data {
+	text-align: center;
+	color: #999;
+	font-size: 1.1rem;
+	padding: 40px;
+}

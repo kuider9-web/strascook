@@ -1,0 +1,60 @@
+.back-office {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bo-header {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
+	padding: 30px;
+	border-radius: 12px;
+	text-align: center;
+	margin-bottom: 30px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bo-header h1 {
+	margin: 0;
+	font-size: 2rem;
+}
+
+.bo-nav {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 30px;
+	flex-wrap: wrap;
+}
+
+.bo-nav button {
+	flex: 1;
+	min-width: 150px;
+	padding: 15px 25px;
+	font-size: 1.1rem;
+	border: 2px solid #e0e0e0;
+	background: white;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-weight: 500;
+}
+
+.bo-nav button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bo-nav button.active {
+	background: #667eea;
+	color: white;
+	border-color: #667eea;
+}
+
+.bo-content {
+	background: white;
+	padding: 30px;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	min-height: 500px;
+}
