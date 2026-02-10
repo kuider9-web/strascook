@@ -138,13 +138,13 @@ function MenuManagement() {
 					/>
 				</div>
 
-				<button type="submit" className="btn-primary">
+				<button type="submit" className="bo-btn-primary">
 					{editingId ? "💾 Modifier le menu" : "➕ Ajouter un nouveau plat"}
 				</button>
 				{editingId && (
 					<button
 						type="button"
-						className="btn-secondary"
+						className="bo-btn-secondary"
 						onClick={() => {
 							setEditingId(null);
 							setFormData({ name: "", photo: "", price: "", allergens: "" });

@@ -31,6 +31,7 @@
 		opacity: 0;
 		transform: translateY(-10px);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(0);
@@ -70,7 +71,7 @@
 	border-color: #667eea;
 }
 
-.btn-primary {
+.bo-btn-primary {
 	background: #667eea;
 	color: white;
 	padding: 15px 30px;
@@ -83,13 +84,13 @@
 	margin-right: 10px;
 }
 
-.btn-primary:hover {
+.bo-btn-primary:hover {
 	background: #5568d3;
 	transform: translateY(-2px);
 	box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
 }
 
-.btn-secondary {
+.bo-btn-secondary {
 	background: #6c757d;
 	color: white;
 	padding: 15px 30px;
@@ -101,7 +102,7 @@
 	transition: all 0.3s;
 }
 
-.btn-secondary:hover {
+.bo-btn-secondary:hover {
 	background: #5a6268;
 }
 
