@@ -3,9 +3,24 @@
 }
 
 .menu-management h2 {
-	font-size: 1.8rem;
+	font-size: 2.5rem;
+	font-family: "Georgia", serif;
+	font-weight: 300;
+	letter-spacing: 2px;
 	margin-bottom: 30px;
-	color: #333;
+	color: var(--black, #000);
+	position: relative;
+	display: inline-block;
+}
+
+.menu-management h2::after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: 0;
+	width: 80px;
+	height: 2px;
+	background: linear-gradient(to right, #c9a961, #e5d4a6);
 }
 
 .loading {
@@ -13,17 +28,19 @@
 	padding: 40px;
 	font-size: 1.2rem;
 	color: #666;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .success-message {
-	background: #4caf50;
+	background: linear-gradient(135deg, #c9a961, #b89650);
 	color: white;
 	padding: 15px 20px;
-	border-radius: 8px;
+	border-radius: 2px;
 	margin-bottom: 20px;
 	font-size: 1.1rem;
 	text-align: center;
 	animation: slideDown 0.3s ease;
+	box-shadow: 0 4px 8px rgba(201, 169, 97, 0.3);
 }
 
 @keyframes slideDown {
@@ -39,10 +56,11 @@
 }
 
 .menu-form {
-	background: #f8f9fa;
+	background: #fafafa;
 	padding: 25px;
-	border-radius: 10px;
+	border-radius: 2px;
 	margin-bottom: 40px;
+	border: 1px solid #ddd;
 }
 
 .form-group {
@@ -51,59 +69,66 @@
 
 .form-group label {
 	display: block;
-	font-weight: 600;
+	font-weight: 500;
 	margin-bottom: 8px;
-	color: #555;
+	color: #333;
 	font-size: 1rem;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: 0.3px;
 }
 
 .form-group input {
 	width: 100%;
 	padding: 12px 15px;
 	border: 2px solid #ddd;
-	border-radius: 6px;
+	border-radius: 2px;
 	font-size: 1rem;
+	font-family: Arial, Helvetica, sans-serif;
 	transition: border-color 0.3s;
 }
 
 .form-group input:focus {
 	outline: none;
-	border-color: #667eea;
+	border-color: #c9a961;
 }
 
 .bo-btn-primary {
-	background: #667eea;
+	background: #c9a961;
 	color: white;
 	padding: 15px 30px;
 	border: none;
-	border-radius: 8px;
+	border-radius: 2px;
 	font-size: 1.1rem;
-	font-weight: 600;
+	font-weight: 500;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: 0.5px;
 	cursor: pointer;
 	transition: all 0.3s;
 	margin-right: 10px;
 }
 
 .bo-btn-primary:hover {
-	background: #5568d3;
+	background: #b89650;
 	transform: translateY(-2px);
-	box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+	box-shadow: 0 4px 8px rgba(201, 169, 97, 0.3);
 }
 
 .bo-btn-secondary {
-	background: #6c757d;
+	background: #666;
 	color: white;
 	padding: 15px 30px;
 	border: none;
-	border-radius: 8px;
+	border-radius: 2px;
 	font-size: 1.1rem;
-	font-weight: 600;
+	font-weight: 500;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: 0.5px;
 	cursor: pointer;
 	transition: all 0.3s;
 }
 
 .bo-btn-secondary:hover {
-	background: #5a6268;
+	background: #555;
 }
 
 .menu-gallery {
@@ -115,21 +140,27 @@
 
 .menu-card {
 	background: white;
-	border: 2px solid #e0e0e0;
-	border-radius: 12px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
 	overflow: hidden;
-	transition: all 0.3s;
+	transition: all 0.4s;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .menu-card:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+	transform: translateY(-8px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .menu-card img {
 	width: 100%;
 	height: 200px;
 	object-fit: cover;
+	transition: transform 0.4s;
+}
+
+.menu-card:hover img {
+	transform: scale(1.05);
 }
 
 .menu-info {
@@ -138,28 +169,33 @@
 
 .menu-info h3 {
 	margin: 0 0 10px 0;
-	font-size: 1.3rem;
-	color: #333;
+	font-size: 1.5rem;
+	font-family: "Georgia", serif;
+	font-weight: 300;
+	letter-spacing: 1px;
+	color: #000;
 }
 
 .price {
 	font-size: 1.5rem;
-	font-weight: 700;
-	color: #667eea;
+	font-weight: 500;
+	color: #c9a961;
 	margin: 10px 0;
+	font-family: "Georgia", serif;
 }
 
 .allergens {
-	color: #ff9800;
+	color: #b89650;
 	font-size: 0.9rem;
 	margin: 5px 0;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .menu-actions {
 	display: flex;
 	gap: 10px;
 	padding: 15px;
-	border-top: 1px solid #e0e0e0;
+	border-top: 1px solid #f0f0f0;
 }
 
 .btn-edit,
@@ -167,29 +203,33 @@
 	flex: 1;
 	padding: 12px;
 	border: none;
-	border-radius: 6px;
+	border-radius: 2px;
 	font-size: 1rem;
-	font-weight: 600;
+	font-weight: 500;
+	font-family: Arial, Helvetica, sans-serif;
 	cursor: pointer;
 	transition: all 0.3s;
+	letter-spacing: 0.3px;
 }
 
 .btn-edit {
-	background: #2196f3;
+	background: #c9a961;
 	color: white;
 }
 
 .btn-edit:hover {
-	background: #1976d2;
+	background: #b89650;
+	transform: translateY(-2px);
 }
 
 .btn-delete {
-	background: #f44336;
+	background: #d9534f;
 	color: white;
 }
 
 .btn-delete:hover {
-	background: #d32f2f;
+	background: #c9302c;
+	transform: translateY(-2px);
 }
 
 .no-data {
@@ -197,4 +237,5 @@
 	color: #999;
 	font-size: 1.1rem;
 	padding: 40px;
+	font-family: Arial, Helvetica, sans-serif;
 }
