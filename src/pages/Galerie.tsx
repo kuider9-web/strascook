@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import "./Galerie.css";
 
 interface Dish {
@@ -248,6 +248,7 @@ const Galerie = () => {
 						<img src={dish.image_URL} alt={dish.nom} loading="lazy" />
 						<div className="galerie-overlay">
 							<h3>{dish.nom}</h3>
+							{dish.prix && <span className="card-price">{dish.prix}</span>}
 							<div className="dish-badges-preview">
 								{getDishBadges(dish)
 									.slice(0, 2)
@@ -351,10 +352,10 @@ const Galerie = () => {
 								</div>
 							)}
 
-							{/* Bouton Réserver */}
-							<Link to="/reservation" className="reservation-button">
-								Réserver une table
-							</Link>
+							{/* Bouton Ajouter au panier */}
+							<button type="button" className="reservation-button">
+								Ajouter au panier
+							</button>
 						</div>
 					</div>
 				</div>
