@@ -44,7 +44,7 @@ function ReservationManagement() {
 
 	return (
 		<div className="reservation-management">
-			<h2>📅 Gestion des Réservations</h2>
+			<h2> Gestion des Réservations</h2>
 
 			{successMessage && (
 				<div className="success-message">{successMessage}</div>
@@ -64,10 +64,10 @@ function ReservationManagement() {
 									</span>
 									<h3>{reservation.clientName}</h3>
 									<p>
-										📅 {reservation.date} à {reservation.time}
+										{reservation.date} à {reservation.time}
 									</p>
 									<p>
-										👥 {reservation.guests} personne
+										{reservation.guests} personne
 										{reservation.guests > 1 ? "s" : ""}
 									</p>
 								</div>

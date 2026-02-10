@@ -12,7 +12,7 @@ function BackOffice() {
 	return (
 		<div className="back-office">
 			<header className="bo-header">
-				<h1>🍳 Tableau de bord - Chef</h1>
+				<h1> Tableau de bord - Chef</h1>
 			</header>
 
 			<nav className="bo-nav">
@@ -21,21 +21,21 @@ function BackOffice() {
 					className={activeTab === "menus" ? "active" : ""}
 					onClick={() => setActiveTab("menus")}
 				>
-					📋 Mes Menus
+					Mes Menus
 				</button>
 				<button
 					type="button"
 					className={activeTab === "reservations" ? "active" : ""}
 					onClick={() => setActiveTab("reservations")}
 				>
-					📅 Réservations
+					Réservations
 				</button>
 				<button
 					type="button"
 					className={activeTab === "calendar" ? "active" : ""}
 					onClick={() => setActiveTab("calendar")}
 				>
-					🗓️ Disponibilités
+					Disponibilités
 				</button>
 			</nav>
 

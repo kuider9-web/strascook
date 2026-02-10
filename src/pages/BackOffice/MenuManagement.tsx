@@ -76,7 +76,7 @@ function MenuManagement() {
 
 	return (
 		<div className="menu-management">
-			<h2>📋 Gestion des Menus</h2>
+			<h2> Gestion des Menus</h2>
 
 			{successMessage && (
 				<div className="success-message">{successMessage}</div>
@@ -175,14 +175,14 @@ function MenuManagement() {
 									className="btn-edit"
 									onClick={() => handleEdit(menu)}
 								>
-									✏️ Modifier
+									Modifier
 								</button>
 								<button
 									type="button"
 									className="btn-delete"
 									onClick={() => handleDelete(menu.id)}
 								>
-									🗑️ Supprimer
+									Supprimer
 								</button>
 							</div>
 						</div>

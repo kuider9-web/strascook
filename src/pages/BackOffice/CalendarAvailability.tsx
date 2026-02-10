@@ -93,7 +93,7 @@ function CalendarAvailability() {
 
 	return (
 		<div className="calendar-availability">
-			<h2>🗓️ Mes Disponibilités</h2>
+			<h2> Mes Disponibilités</h2>
 
 			{successMessage && (
 				<div className="success-message">{successMessage}</div>
@@ -132,7 +132,7 @@ function CalendarAvailability() {
 			</div>
 
 			<p className="calendar-info">
-				💡 Cliquez sur une date pour la bloquer ou la débloquer
+				Cliquez sur une date pour la bloquer ou la débloquer
 			</p>
 		</div>
 	);
