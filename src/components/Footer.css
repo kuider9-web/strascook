@@ -118,6 +118,42 @@
 }
 
 /* ========================================
+   LOGO FOOTER
+   ======================================== */
+.footer-logo {
+	width: 80px;
+	height: auto;
+	margin-bottom: 1.5rem;
+	filter: drop-shadow(0 0 15px rgba(201, 169, 97, 0.6)) brightness(1.3);
+	transition: all 0.4s ease;
+	animation: fadeIn 0.8s ease-out;
+}
+
+.footer-logo:hover {
+	filter: drop-shadow(0 0 25px rgba(201, 169, 97, 0.9)) brightness(1.5);
+	transform: scale(1.05);
+}
+
+/* Bouton logo cliquable */
+.footer-logo-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	margin-bottom: 0.5rem;
+	transition: all 0.4s ease;
+}
+
+.footer-logo-button:hover .footer-logo {
+	transform: scale(1.1);
+	filter: drop-shadow(0 0 30px rgba(201, 169, 97, 1)) brightness(1.6);
+}
+
+.footer-logo-button:active .footer-logo {
+	transform: scale(1.05);
+}
+
+/* ========================================
    SECTION INFO (GAUCHE)
    ======================================== */
 .footer-info h3 {
@@ -126,7 +162,7 @@
 	font-weight: 300;
 	letter-spacing: 2px;
 	color: white;
-	margin: 0 0 1.5rem 0;
+	margin: -0.5rem 0 1.5rem 0;
 	position: relative;
 	padding-bottom: 1rem;
 }
@@ -439,6 +475,10 @@
 		gap: 2rem;
 	}
 
+	.footer-logo {
+		width: 70px;
+	}
+
 	.footer-info h3 {
 		font-size: 1.5rem;
 		letter-spacing: 1px;
@@ -507,6 +547,10 @@
 
 	.footer-top {
 		border-bottom-color: black;
+	}
+
+	.footer-logo {
+		filter: none;
 	}
 
 	.footer-info h3,
