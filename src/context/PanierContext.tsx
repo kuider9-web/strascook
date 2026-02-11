@@ -9,7 +9,7 @@ interface PanierItem {
 
 interface PanierContextType {
 	panier: PanierItem[];
-	ajoutPanier: (produit: any) => void;
+	ajoutPanier: (produit: Omit<PanierItem, "quantiter">) => void;
 	supprimerDuPanier: (nom: string) => void;
 	totalArticles: number;
 	total: number;
@@ -27,7 +27,7 @@ function PanierProvider({ children }: { children: React.ReactNode }) {
 		localStorage.setItem("panier", JSON.stringify(panier));
 	}, [panier]);
 
-	function ajoutPanier(produit: any) {
+	function ajoutPanier(produit: Omit<PanierItem, "quantiter">) {
 		const produitExistant = panier.find((item) => item.nom === produit.nom);
 		if (produitExistant) {
 			setPanier(
