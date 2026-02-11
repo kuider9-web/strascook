@@ -22,6 +22,7 @@
 	from {
 		opacity: 0;
 	}
+
 	to {
 		opacity: 1;
 	}
@@ -32,6 +33,7 @@
 		opacity: 0;
 		transform: translateY(-30px);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(0);
@@ -43,6 +45,7 @@
 		opacity: 0;
 		transform: translateY(30px);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(0);
@@ -54,6 +57,7 @@
 		opacity: 0;
 		transform: scale(0.95);
 	}
+
 	to {
 		opacity: 1;
 		transform: scale(1);
@@ -64,6 +68,7 @@
 	0% {
 		background-position: -1000px 0;
 	}
+
 	100% {
 		background-position: 1000px 0;
 	}
@@ -73,6 +78,7 @@
 	from {
 		width: 0;
 	}
+
 	to {
 		width: 100%;
 	}
@@ -471,12 +477,14 @@
 	width: 28px;
 	height: 28px;
 	object-fit: contain;
-	filter: brightness(0) invert(1); /* ← Blanc comme les liens nav */
+	filter: brightness(0) invert(1);
+	/* ← Blanc comme les liens nav */
 	transition: all 0.3s ease;
 }
 
 .panier-btn:hover img {
-	filter: brightness(0) invert(0.85) sepia(1) saturate(3) hue-rotate(5deg); /* ← Couleur dorée au hover */
+	filter: brightness(0) invert(0.85) sepia(1) saturate(3) hue-rotate(5deg);
+	/* ← Couleur dorée au hover */
 	transform: translateY(-2px);
 }
 
@@ -512,7 +520,8 @@
 	border: none;
 	cursor: pointer;
 	padding: 0;
-	backdrop-filter: blur(2px); /* ← Flou élégant derrière */
+	backdrop-filter: blur(2px);
+	/* ← Flou élégant derrière */
 }
 
 /* ========================================
@@ -554,6 +563,7 @@
 		opacity: 0;
 		transform: translateY(-50%) translateX(30px);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(-50%) translateX(0);
@@ -736,9 +746,9 @@
 	*,
 	*::before,
 	*::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
 	}
 }
 

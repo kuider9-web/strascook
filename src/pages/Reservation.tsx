@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { InlineWidget } from "react-calendly";
 import "./Reservation.css";
+import { usePanier } from "../context/PanierContext";
+import DataSyncService from "../services/dataSync";
 
 function Reservation() {
+	const { panier, total, totalArticles, viderPanier } = usePanier();
+	const [confirmationMessage, setConfirmationMessage] = useState("");
+
 	const [formData, setFormData] = useState({
 		nom: "",
 		prenom: "",
@@ -12,21 +17,72 @@ function Reservation() {
 		typeEvenement: "mariage",
 		avecDecoration: "non",
 		dateEvenement: "",
+		heureEvenement: "19:00",
+		nombreConvives: 2,
 		message: "",
 	});
 
 	function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
-		console.log(formData);
+
+		// Crée la réservation dans le localStorage
+		const reservation = DataSyncService.addReservation({
+			clientName: `${formData.prenom} ${formData.nom}`,
+			clientEmail: formData.email,
+			clientPhone: formData.telephone,
+			date: formData.dateEvenement,
+			time: formData.heureEvenement,
+			guests: formData.nombreConvives,
+			menus: panier.map((item) => ({
+				id: item.nom,
+				nom: item.nom,
+				prix: parseFloat(item.prix),
+				description: "",
+				image_URL: item.image_URL,
+				quantiter: item.quantiter,
+			})),
+			totalPrice: total,
+			notes: `Type: ${formData.typeEvenement}, ${formData.particulierOuProfessionnel}, Décoration: ${formData.avecDecoration}. ${formData.message}`,
+		});
+
+		// Affiche la confirmation
+		setConfirmationMessage(
+			`✅ Réservation confirmée !\n\nNuméro : ${reservation.id}\nDate : ${formData.dateEvenement} à ${formData.heureEvenement}\nNous vous recontacterons sous 24h.`,
+		);
+
+		// Vide le panier
+		viderPanier();
+
+		// Reset le formulaire
+		setFormData({
+			nom: "",
+			prenom: "",
+			email: "",
+			telephone: "",
+			particulierOuProfessionnel: "particulier",
+			typeEvenement: "mariage",
+			avecDecoration: "non",
+			dateEvenement: "",
+			heureEvenement: "19:00",
+			nombreConvives: 2,
+			message: "",
+		});
+
+		// Scroll vers le haut pour voir le message
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	}
 
 	return (
 		<div className="page-reservation">
+			{confirmationMessage && (
+				<div className="confirmation-message">{confirmationMessage}</div>
+			)}
+
 			<div className="haut">
 				<div className="intro">
 					<h2>Demande de réservation:</h2>
 					<p>
-						Besoin de précisions, d’un devis ou d’un premier échange ? Laissez
+						Besoin de précisions, d'un devis ou d'un premier échange ? Laissez
 						un message via ce formulaire ou contactez directement le chef :
 						chaque demande est traitée avec soin et réactivité. Vous pouvez
 						également voir nos disponibilitées via notre calendrier. Nous vous
@@ -46,47 +102,76 @@ function Reservation() {
 				</div>
 			</div>
 
+			{panier.length > 0 && (
+				<div className="panier-recap">
+					<h3>
+						Votre sélection ({totalArticles}{" "}
+						{totalArticles > 1 ? "articles" : "article"})
+					</h3>
+					<ul>
+						{panier.map((item) => (
+							<li key={item.nom} className="panier-recap-item">
+								<img src={item.image_URL} alt={item.nom} />
+								<span className="panier-recap-nom">{item.nom}</span>
+								<span className="panier-recap-quantite">x{item.quantiter}</span>
+								<span className="panier-recap-prix">
+									{(parseFloat(item.prix) * item.quantiter).toFixed(2)}€
+								</span>
+							</li>
+						))}
+					</ul>
+					<div className="panier-recap-total">
+						<span>Total</span>
+						<span>{total.toFixed(2)}€</span>
+					</div>
+				</div>
+			)}
+
 			<form onSubmit={handleSubmit}>
 				<div className="ligne">
 					<label>
-						Nom{" "}
+						Nom *
 						<input
 							type="text"
 							value={formData.nom}
 							onChange={(e) =>
 								setFormData({ ...formData, nom: e.target.value })
 							}
+							required
 						/>
 					</label>
 					<label>
-						Prénom{" "}
+						Prénom *
 						<input
 							type="text"
 							value={formData.prenom}
 							onChange={(e) =>
 								setFormData({ ...formData, prenom: e.target.value })
 							}
+							required
 						/>
 					</label>
 				</div>
 				<label>
-					Email{" "}
+					Email *
 					<input
 						type="email"
 						value={formData.email}
 						onChange={(e) =>
 							setFormData({ ...formData, email: e.target.value })
 						}
+						required
 					/>
 				</label>
 				<label>
-					Téléphone{" "}
+					Téléphone *
 					<input
 						type="tel"
 						value={formData.telephone}
 						onChange={(e) =>
 							setFormData({ ...formData, telephone: e.target.value })
 						}
+						required
 					/>
 				</label>
 				<label>
@@ -131,17 +216,46 @@ function Reservation() {
 					</select>
 				</label>
 				<label>
-					Date de l'événement{" "}
+					Date de l'événement *
 					<input
 						type="date"
 						value={formData.dateEvenement}
 						onChange={(e) =>
 							setFormData({ ...formData, dateEvenement: e.target.value })
 						}
+						min={new Date().toISOString().split("T")[0]}
+						required
 					/>
 				</label>
 				<label>
-					Message{" "}
+					Heure de l'événement *
+					<input
+						type="time"
+						value={formData.heureEvenement}
+						onChange={(e) =>
+							setFormData({ ...formData, heureEvenement: e.target.value })
+						}
+						required
+					/>
+				</label>
+				<label>
+					Nombre de convives *
+					<input
+						type="number"
+						value={formData.nombreConvives}
+						onChange={(e) =>
+							setFormData({
+								...formData,
+								nombreConvives: parseInt(e.target.value, 10) || 2,
+							})
+						}
+						min="1"
+						max="500"
+						required
+					/>
+				</label>
+				<label>
+					Message
 					<textarea
 						value={formData.message}
 						onChange={(e) =>
@@ -149,7 +263,7 @@ function Reservation() {
 						}
 					/>
 				</label>
-				<button type="submit">Envoyer</button>
+				<button type="submit">Envoyer la réservation</button>
 			</form>
 		</div>
 	);

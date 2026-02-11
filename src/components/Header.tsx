@@ -1,12 +1,24 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import panierIcone from "../asset/image/panierIcon.png";
+import { useAuth } from "../context/AuthContext";
 import { usePanier } from "../context/PanierContext";
 import "./Header.css";
 
 function Header() {
 	const { totalArticles, panier, supprimerDuPanier, total } = usePanier();
 	const [afficherPanier, setAfficherPanier] = useState(false);
+	const { user, isAuthenticated, logout } = useAuth();
+	const navigate = useNavigate();
+
+	function goReservation() {
+		setAfficherPanier(false);
+		navigate("/reservation");
+	}
+	function handleLogout() {
+		logout();
+		navigate("/");
+	}
 
 	return (
 		<header className="header">
@@ -21,6 +33,23 @@ function Header() {
 				<Link to="/menu">Les Menus</Link>
 				<Link to="/galerie">Galerie</Link>
 				<Link to="/reservation">Réservations</Link>
+				{isAuthenticated && (
+					<Link to="/admin" className="admin-link">
+						Back-Office
+					</Link>
+				)}
+				{isAuthenticated ? (
+					<div className="user-menu">
+						<span className="user-name">👤 {user?.name}</span>
+						<button type="button" className="logout-btn" onClick={handleLogout}>
+							Déconnexion
+						</button>
+					</div>
+				) : (
+					<Link to="/login" className="login-link">
+						Connexion
+					</Link>
+				)}
 
 				<div className="panier-icon-container">
 					<button
@@ -86,9 +115,19 @@ function Header() {
 							<span className="panier-total-label">Total</span>
 							<span className="panier-total-prix">{total.toFixed(2)}€</span>
 						</div>
+						{panier.length > 0 && (
+							<button
+								type="button"
+								onClick={goReservation}
+								className="panier-reserver-btn"
+							>
+								Réserver
+							</button>
+						)}
 					</div>
 				</div>
 			)}
+
 			<div className="header-content">
 				<h1 className="header-title">Gastronomique</h1>
 				<p className="header-subtitle">
