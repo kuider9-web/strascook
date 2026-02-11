@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { usePanier } from "../context/PanierContext";
 import "./Galerie.css";
 
 interface Dish {
@@ -34,6 +34,7 @@ type FilterType =
 type CategoryFilter = "all" | "entree" | "plat" | "dessert";
 
 const Galerie = () => {
+	const { ajoutPanier } = usePanier();
 	const [_menus, setMenus] = useState<Menu[]>([]);
 	const [allDishes, setAllDishes] = useState<Dish[]>([]);
 	const [filteredDishes, setFilteredDishes] = useState<Dish[]>([]);
@@ -353,7 +354,15 @@ const Galerie = () => {
 							)}
 
 							{/* Bouton Ajouter au panier */}
-							<button type="button" className="reservation-button">
+
+							<button
+								type="button"
+								className="reservation-button"
+								onClick={() => {
+									ajoutPanier(selectedDish);
+									setSelectedDish(null); // Ferme la modal après ajout
+								}}
+							>
 								Ajouter au panier
 							</button>
 						</div>
