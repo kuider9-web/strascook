@@ -552,6 +552,268 @@
 	}
 }
 
+/* ========================================
+   PANIER - ICÔNE ET BADGE
+   ======================================== */
+.panier-icon-container {
+	position: relative;
+	display: inline-block;
+}
+
+.panier-btn {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0.5rem;
+	transition: all 0.3s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.panier-btn img {
+	width: 28px;
+	height: 28px;
+	object-fit: contain;
+	filter: brightness(0) invert(1); /* ← Blanc comme les liens nav */
+	transition: all 0.3s ease;
+}
+
+.panier-btn:hover img {
+	filter: brightness(0) invert(0.85) sepia(1) saturate(3) hue-rotate(5deg); /* ← Couleur dorée au hover */
+	transform: translateY(-2px);
+}
+
+.panier-badge {
+	position: absolute;
+	top: -6px;
+	right: -6px;
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+	color: white;
+	border-radius: 50%;
+	width: 18px;
+	height: 18px;
+	font-size: 10px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 2px 6px rgba(201, 169, 97, 0.5);
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ========================================
+   PANIER - OVERLAY (FOND SOMBRE)
+   ======================================== */
+.panier-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.65);
+	z-index: 999;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	backdrop-filter: blur(2px); /* ← Flou élégant derrière */
+}
+
+/* ========================================
+   PANIER - MODAL
+   ======================================== */
+.panier-modal {
+	position: fixed;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	background-color: white;
+	padding: 30px;
+	z-index: 1000;
+	width: 400px;
+	max-height: 85vh;
+	overflow-y: auto;
+	box-shadow: var(--shadow-lg);
+	animation: slideInRight 0.3s ease-out;
+}
+
+/* Ligne dorée en haut de la modal */
+.panier-modal::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(
+		to right,
+		var(--accent-color),
+		var(--accent-light),
+		var(--accent-color)
+	);
+}
+
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateY(-50%) translateX(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(-50%) translateX(0);
+	}
+}
+
+/* ========================================
+   PANIER - HEADER DE LA MODAL
+   ======================================== */
+.panier-modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.panier-modal-header h2 {
+	font-family: "Georgia", serif;
+	font-size: 1.4rem;
+	font-weight: 400;
+	color: var(--dark-gray);
+	margin: 0;
+	letter-spacing: 1px;
+}
+
+.panier-close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 22px;
+	color: var(--medium-gray);
+	transition: all 0.3s ease;
+	padding: 5px;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.panier-close:hover {
+	color: var(--dark-gray);
+	transform: rotate(90deg);
+}
+
+/* ========================================
+   PANIER - LISTE DES ITEMS
+   ======================================== */
+.panier-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.panier-item {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 15px 0;
+	border-bottom: 1px solid var(--border-color);
+	animation: fadeIn 0.3s ease-out;
+}
+
+.panier-item:last-child {
+	border-bottom: none;
+}
+
+.panier-item img {
+	width: 65px;
+	height: 65px;
+	object-fit: cover;
+	border-radius: 6px;
+	box-shadow: var(--shadow-sm);
+}
+
+.panier-item-info {
+	flex: 1;
+}
+
+.panier-item-nom {
+	font-family: "Georgia", serif;
+	font-size: 0.95rem;
+	font-weight: 400;
+	color: var(--dark-gray);
+	margin: 0 0 5px 0;
+	letter-spacing: 0.3px;
+}
+
+.panier-item-prix {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.85rem;
+	color: var(--accent-color);
+	font-weight: 600;
+	margin: 0;
+	letter-spacing: 0.5px;
+}
+
+.panier-item-delete {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: var(--medium-gray);
+	font-size: 18px;
+	padding: 5px;
+	transition: all 0.3s ease;
+	display: flex;
+	align-items: center;
+	opacity: 0.5;
+}
+
+.panier-item-delete:hover {
+	opacity: 1;
+	transform: scale(1.15);
+	color: #c0392b;
+}
+
+/* ========================================
+   PANIER - VIDE
+   ======================================== */
+.panier-empty {
+	text-align: center;
+	padding: 40px 0;
+	color: var(--medium-gray);
+	font-family: "Georgia", serif;
+	font-size: 1rem;
+	font-style: italic;
+	letter-spacing: 0.5px;
+}
+
+/* ========================================
+   PANIER - TOTAL
+   ======================================== */
+.panier-total {
+	margin-top: 20px;
+	padding-top: 15px;
+	border-top: 1px solid var(--border-color);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-family: "Georgia", serif;
+	font-size: 1.1rem;
+	color: var(--dark-gray);
+	letter-spacing: 0.5px;
+}
+
+.panier-total-label {
+	font-weight: 400;
+}
+
+.panier-total-prix {
+	color: var(--accent-color);
+	font-weight: 600;
+	font-size: 1.2rem;
+}
+
 @media (max-width: 375px) {
 	.header {
 		height: 400px;

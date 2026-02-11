@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { usePanier } from "../context/PanierContext";
 import "./Galerie.css";
 
 interface Dish {
@@ -34,6 +34,7 @@ type FilterType =
 type CategoryFilter = "all" | "entree" | "plat" | "dessert";
 
 const Galerie = () => {
+	const { ajoutPanier } = usePanier();
 	const [_menus, setMenus] = useState<Menu[]>([]);
 	const [allDishes, setAllDishes] = useState<Dish[]>([]);
 	const [filteredDishes, setFilteredDishes] = useState<Dish[]>([]);
@@ -248,6 +249,7 @@ const Galerie = () => {
 						<img src={dish.image_URL} alt={dish.nom} loading="lazy" />
 						<div className="galerie-overlay">
 							<h3>{dish.nom}</h3>
+							{dish.prix && <span className="card-price">{dish.prix}</span>}
 							<div className="dish-badges-preview">
 								{getDishBadges(dish)
 									.slice(0, 2)
@@ -351,10 +353,26 @@ const Galerie = () => {
 								</div>
 							)}
 
-							{/* Bouton Réserver */}
-							<Link to="/reservation" className="reservation-button">
-								Réserver une table
-							</Link>
+							{/* Bouton Ajouter au panier */}
+
+							<button
+								type="button"
+								className="reservation-button"
+								onClick={() => {
+									if (!selectedDish.prix) return;
+									ajoutPanier({
+										nom: selectedDish.nom,
+										prix: selectedDish.prix,
+										image_URL: selectedDish.image_URL,
+									});
+									setSelectedDish(null);
+								}}
+								disabled={!selectedDish.prix}
+							>
+								{selectedDish.prix
+									? "Ajouter au panier"
+									: "Prix non disponible"}
+							</button>
 						</div>
 					</div>
 				</div>
