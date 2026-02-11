@@ -359,11 +359,19 @@ const Galerie = () => {
 								type="button"
 								className="reservation-button"
 								onClick={() => {
-									ajoutPanier(selectedDish);
-									setSelectedDish(null); // Ferme la modal après ajout
+									if (!selectedDish.prix) return;
+									ajoutPanier({
+										nom: selectedDish.nom,
+										prix: selectedDish.prix,
+										image_URL: selectedDish.image_URL,
+									});
+									setSelectedDish(null);
 								}}
+								disabled={!selectedDish.prix}
 							>
-								Ajouter au panier
+								{selectedDish.prix
+									? "Ajouter au panier"
+									: "Prix non disponible"}
 							</button>
 						</div>
 					</div>
