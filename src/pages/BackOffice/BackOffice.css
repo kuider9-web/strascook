@@ -90,3 +90,39 @@
 	box-shadow: var(--shadow-sm);
 	min-height: 500px;
 }
+
+.header-info {
+	position: absolute;
+	top: 20px;
+	right: 40px;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.user-role {
+	color: rgba(255, 255, 255, 0.9);
+	font-weight: 500;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.logout-btn {
+	padding: 0.6rem 1.5rem;
+	background: rgba(255, 255, 255, 0.2);
+	color: white;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 20px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.3s ease;
+	font-size: 0.9rem;
+	letter-spacing: 0.5px;
+}
+
+.logout-btn:hover {
+	background: rgba(255, 255, 255, 0.3);
+	border-color: white;
+	transform: translateY(-2px);
+}

@@ -177,7 +177,7 @@ function Menu() {
 								className="plat"
 							/>
 							<h3 className="titreMenu">{menu.menu_type}</h3>
-							<p className="prix">{menu.prix}</p>
+							<p className="prix">{menu.prix_menu}</p>
 						</a>
 					))
 				) : (
@@ -211,7 +211,7 @@ function Menu() {
 							{/* Carte menu en dessous des images */}
 							<div className="carteMenu">
 								<h3 className="nomMenu">{menu.menu_type}</h3>
-								<p className="prix">{menu.prix}</p>
+								<p className="prix">{menu.prix_menu}</p>
 								<button
 									type="button"
 									onClick={() => navigate("/reservation")}
