@@ -164,3 +164,74 @@
 		transform: translateY(0);
 	}
 }
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+@media (max-width: 768px) {
+	.reservation-management h2 {
+		font-size: 1.8rem;
+	}
+
+	.reservation-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 15px;
+	}
+
+	.reservation-actions {
+		width: 100%;
+		justify-content: flex-start;
+	}
+
+	.btn-accept,
+	.btn-refuse {
+		flex: 1;
+		padding: 12px 16px;
+		font-size: 1rem;
+		min-width: unset;
+	}
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+@media (max-width: 480px) {
+	.reservation-management {
+		padding: 10px;
+	}
+
+	.reservation-management h2 {
+		font-size: 1.4rem;
+		margin-bottom: 20px;
+	}
+
+	.reservation-row {
+		padding: 15px;
+	}
+
+	.reservation-info h3 {
+		font-size: 1.2rem;
+	}
+
+	.reservation-info p {
+		font-size: 0.9rem;
+	}
+
+	.reservation-actions {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.btn-accept,
+	.btn-refuse {
+		width: 100%;
+		padding: 12px;
+		font-size: 0.95rem;
+	}
+
+	.status-badge {
+		font-size: 0.8rem;
+		padding: 4px 10px;
+	}
+}

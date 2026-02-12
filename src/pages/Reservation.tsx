@@ -199,9 +199,13 @@ function Reservation() {
 					Téléphone *
 					<input
 						type="tel"
+						inputMode="numeric"
 						value={formData.telephone}
 						onChange={(e) =>
-							setFormData({ ...formData, telephone: e.target.value })
+							setFormData({
+								...formData,
+								telephone: e.target.value.replace(/\D/g, ""),
+							})
 						}
 						required
 					/>
