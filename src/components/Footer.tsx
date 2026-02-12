@@ -1,13 +1,33 @@
 import { Link } from "react-router-dom";
 import "./Footer.css";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
+import logo from "../asset/image/logo1.png";
 
 function Footer() {
+	// Fonction pour remonter en haut de la page
+	const scrollToTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	};
+
 	return (
 		<footer className="footer">
 			<div className="footer-top">
 				<div className="footer-content">
 					<div className="footer-section footer-info">
+						<button
+							onClick={scrollToTop}
+							className="footer-logo-button"
+							type="button"
+						>
+							<img
+								src={logo}
+								alt="Gastronomique Logo"
+								className="footer-logo"
+							/>
+						</button>
 						<h3>Gastronomique</h3>
 						<div className="footer-contact">
 							<p>Téléphone: 06.58.60.39.19</p>
@@ -59,7 +79,7 @@ function Footer() {
 			</div>
 
 			<div className="footer-bottom">
-				<p>© 2026 Gastronomique Tous doits réservés</p>
+				<p>© 2026 Gastronomique Tous droits réservés</p>
 			</div>
 		</footer>
 	);

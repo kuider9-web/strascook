@@ -4,8 +4,16 @@ import panierIcone from "../asset/image/panierIcon.png";
 import { useAuth } from "../context/AuthContext";
 import { usePanier } from "../context/PanierContext";
 import "./Header.css";
+import logo from "../asset/image/logo1.png";
 
 function Header() {
+	// Fonction pour remonter en haut de la page
+	const scrollToTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	};
 	const { totalArticles, panier, supprimerDuPanier, total } = usePanier();
 	const [afficherPanier, setAfficherPanier] = useState(false);
 	const { user, isAuthenticated, logout } = useAuth();
@@ -26,8 +34,9 @@ function Header() {
 				<source src="/video_header.mp4" type="video/mp4" />
 				Votre navigateur ne supporte pas la vidéo.
 			</video>
-			<div className="header-overlay"></div>
+			<div className="header-overlay" />
 
+			{/* Navbar sticky */}
 			<nav className="header-nav">
 				<Link to="/">Accueil</Link>
 				<Link to="/menu">Les Menus</Link>
@@ -50,19 +59,56 @@ function Header() {
 						Connexion
 					</Link>
 				)}
+				{/* Logo cliquable qui remonte */}
+				<button onClick={scrollToTop} className="header-logo" type="button">
+					<img src={logo} alt="Gastronomique Logo" />
+				</button>
 
-				<div className="panier-icon-container">
-					<button
-						type="button"
-						className="panier-btn"
-						onClick={() => setAfficherPanier(!afficherPanier)}
-						aria-label="Ouvrir le panier"
-					>
-						<img src={panierIcone} alt="Panier" />
-					</button>
-					{totalArticles > 0 && (
-						<span className="panier-badge">{totalArticles}</span>
+				{/* Navigation au centre */}
+				<div className="header-nav-links">
+					<Link to="/">Accueil</Link>
+					<Link to="/menu">Les Menus</Link>
+					<Link to="/galerie">Galerie</Link>
+					<Link to="/reservation">Réservations</Link>
+					{isAuthenticated && (
+						<Link to="/admin" className="admin-link">
+							Back-Office
+						</Link>
 					)}
+				</div>
+
+				{/* User menu ou login + panier à droite */}
+				<div className="header-right">
+					{isAuthenticated ? (
+						<div className="user-menu">
+							<span className="user-name">👤 {user?.name}</span>
+							<button
+								type="button"
+								className="logout-btn"
+								onClick={handleLogout}
+							>
+								Déconnexion
+							</button>
+						</div>
+					) : (
+						<Link to="/login" className="login-link">
+							Connexion
+						</Link>
+					)}
+
+					<div className="panier-icon-container">
+						<button
+							type="button"
+							className="panier-btn"
+							onClick={() => setAfficherPanier(!afficherPanier)}
+							aria-label="Ouvrir le panier"
+						>
+							<img src={panierIcone} alt="Panier" />
+						</button>
+						{totalArticles > 0 && (
+							<span className="panier-badge">{totalArticles}</span>
+						)}
+					</div>
 				</div>
 			</nav>
 
