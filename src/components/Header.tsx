@@ -40,7 +40,7 @@ function Header() {
 				)}
 				{isAuthenticated ? (
 					<div className="user-menu">
-						<span className="user-name">👤 {user?.name}</span>
+						<span className="user-name"> {user?.name} </span>
 						<button type="button" className="logout-btn" onClick={handleLogout}>
 							Déconnexion
 						</button>

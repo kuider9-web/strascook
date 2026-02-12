@@ -32,11 +32,41 @@ export interface MenuModification {
 	modifiedAt: string;
 }
 
+export interface Plat {
+	id: string;
+	temps?: number;
+	categorie: "entree" | "plat" | "dessert";
+	nom: string;
+	prix: string;
+	description?: string;
+	ingredients?: string[];
+	vegetalien: boolean;
+	vegetarien: boolean;
+	sans_gluten: boolean;
+	sans_lactose: boolean;
+	image_URL: string;
+	isCustom?: boolean; // Créé par le chef (vs venant de l'API)
+}
+
+export interface MenuFilters {
+	vegetarien: boolean;
+	vegetalien: boolean;
+	sans_gluten: boolean;
+	sans_lactose: boolean;
+	entrees: boolean;
+	plats: boolean;
+	desserts: boolean;
+}
+
+// biome-ignore lint/complexity/noStaticOnlyClass: <explication optionnelle>
 class DataSyncService {
 	private static STORAGE_KEYS = {
 		MENUS: "strascook_menus",
 		RESERVATIONS: "strascook_reservations",
 		MENU_MODIFICATIONS: "strascook_menu_modifications",
+		MENU_FILTERS: "strascook_menu_filters",
+		CUSTOM_PLATS: "strascook_custom_plats",
+		HIDDEN_PLATS: "strascook_hidden_plats",
 	};
 
 	// ========================================
@@ -229,6 +259,159 @@ class DataSyncService {
 	}
 
 	// ========================================
+	// GESTION DES PLATS PERSONNALISÉS
+	// ========================================
+
+	/**
+	 * Récupère tous les plats personnalisés créés par le chef
+	 */
+	static getCustomPlats(): Plat[] {
+		return (
+			DataSyncService.getLocalData<Plat[]>(
+				DataSyncService.STORAGE_KEYS.CUSTOM_PLATS,
+			) || []
+		);
+	}
+
+	/**
+	 * Ajoute un nouveau plat personnalisé
+	 */
+	static addCustomPlat(plat: Omit<Plat, "id" | "isCustom">): Plat {
+		const customPlats = DataSyncService.getCustomPlats();
+
+		const newPlat: Plat = {
+			...plat,
+			id: `custom_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+			isCustom: true,
+		};
+
+		customPlats.push(newPlat);
+		DataSyncService.setLocalData(
+			DataSyncService.STORAGE_KEYS.CUSTOM_PLATS,
+			customPlats,
+		);
+
+		window.dispatchEvent(
+			new CustomEvent("platsUpdated", { detail: customPlats }),
+		);
+
+		return newPlat;
+	}
+
+	/**
+	 * Met à jour un plat personnalisé existant
+	 */
+	static updateCustomPlat(id: string, updates: Partial<Plat>): void {
+		const customPlats = DataSyncService.getCustomPlats();
+		const index = customPlats.findIndex((p) => p.id === id);
+
+		if (index >= 0) {
+			customPlats[index] = { ...customPlats[index], ...updates };
+			DataSyncService.setLocalData(
+				DataSyncService.STORAGE_KEYS.CUSTOM_PLATS,
+				customPlats,
+			);
+			window.dispatchEvent(
+				new CustomEvent("platsUpdated", { detail: customPlats }),
+			);
+		}
+	}
+
+	/**
+	 * Supprime un plat personnalisé
+	 */
+	static deleteCustomPlat(id: string): void {
+		const customPlats = DataSyncService.getCustomPlats();
+		const filtered = customPlats.filter((p) => p.id !== id);
+
+		DataSyncService.setLocalData(
+			DataSyncService.STORAGE_KEYS.CUSTOM_PLATS,
+			filtered,
+		);
+		window.dispatchEvent(new CustomEvent("platsUpdated", { detail: filtered }));
+	}
+
+	/**
+	 * Récupère les IDs des plats cachés (masqués par le chef)
+	 */
+	static getHiddenPlats(): string[] {
+		return (
+			DataSyncService.getLocalData<string[]>(
+				DataSyncService.STORAGE_KEYS.HIDDEN_PLATS,
+			) || []
+		);
+	}
+
+	/**
+	 * Masque un plat de l'API
+	 */
+	static hidePlat(platId: string): void {
+		const hiddenPlats = DataSyncService.getHiddenPlats();
+
+		if (!hiddenPlats.includes(platId)) {
+			hiddenPlats.push(platId);
+			DataSyncService.setLocalData(
+				DataSyncService.STORAGE_KEYS.HIDDEN_PLATS,
+				hiddenPlats,
+			);
+			window.dispatchEvent(new CustomEvent("platsUpdated"));
+		}
+	}
+
+	/**
+	 * Affiche à nouveau un plat masqué
+	 */
+	static showPlat(platId: string): void {
+		const hiddenPlats = DataSyncService.getHiddenPlats();
+		const filtered = hiddenPlats.filter((id) => id !== platId);
+
+		DataSyncService.setLocalData(
+			DataSyncService.STORAGE_KEYS.HIDDEN_PLATS,
+			filtered,
+		);
+		window.dispatchEvent(new CustomEvent("platsUpdated"));
+	}
+
+	// ========================================
+	// GESTION DES FILTRES DE MENUS
+	// ========================================
+
+	/**
+	 * Récupère les filtres de menus définis par le chef
+	 */
+	static getMenuFilters(): MenuFilters {
+		const filters = DataSyncService.getLocalData<MenuFilters>(
+			DataSyncService.STORAGE_KEYS.MENU_FILTERS,
+		);
+
+		// Valeurs par défaut : tout affiché
+		return (
+			filters || {
+				vegetarien: true,
+				vegetalien: true,
+				sans_gluten: true,
+				sans_lactose: true,
+				entrees: true,
+				plats: true,
+				desserts: true,
+			}
+		);
+	}
+
+	/**
+	 * Sauvegarde les filtres de menus
+	 */
+	static saveMenuFilters(filters: MenuFilters): void {
+		DataSyncService.setLocalData(
+			DataSyncService.STORAGE_KEYS.MENU_FILTERS,
+			filters,
+		);
+		window.dispatchEvent(
+			new CustomEvent("menuFiltersUpdated", { detail: filters }),
+		);
+	}
+
+	// ========================================
 	// MÉTHODES UTILITAIRES PRIVÉES
 	// ========================================
 
@@ -262,6 +445,66 @@ class DataSyncService {
 			const mod = modMap.get(menu.id);
 			return mod ? { ...menu, ...mod } : menu;
 		});
+	}
+	// ========================================
+	// GESTION DES DISPONIBILITÉS / DATES BLOQUÉES
+	// ========================================
+
+	/**
+	 * Récupère les dates bloquées manuellement par le chef
+	 */
+	static getBlockedDates(): string[] {
+		return (
+			DataSyncService.getLocalData<string[]>("strascook_blocked_dates") || []
+		);
+	}
+
+	/**
+	 * Bloque/débloque une date
+	 */
+	static toggleBlockedDate(dateStr: string): string[] {
+		const blocked = DataSyncService.getBlockedDates();
+
+		if (blocked.includes(dateStr)) {
+			// Débloque
+			const filtered = blocked.filter((d) => d !== dateStr);
+			DataSyncService.setLocalData("strascook_blocked_dates", filtered);
+			window.dispatchEvent(
+				new CustomEvent("datesUpdated", { detail: filtered }),
+			);
+			return filtered;
+		} else {
+			// Bloque
+			blocked.push(dateStr);
+			DataSyncService.setLocalData("strascook_blocked_dates", blocked);
+			window.dispatchEvent(
+				new CustomEvent("datesUpdated", { detail: blocked }),
+			);
+			return blocked;
+		}
+	}
+
+	/**
+	 * Récupère toutes les dates indisponibles (bloquées + réservées confirmées)
+	 * Format: "2025-02-15" (journée entière) ou "2025-02-15-AM" ou "2025-02-15-PM"
+	 */
+	static getUnavailableDates(): string[] {
+		// 1. Dates bloquées manuellement (journée entière)
+		const blocked = DataSyncService.getBlockedDates();
+
+		// 2. Dates avec réservation confirmée (par demi-journée)
+		const reservations = DataSyncService.getReservations();
+		const reservedSlots = reservations
+			.filter((r) => r.status === "confirmed")
+			.map((r) => {
+				// Si l'heure est avant 14h → matin (AM), sinon après-midi (PM)
+				const hour = parseInt(r.time.split(":")[0], 10);
+				const period = hour < 14 ? "AM" : "PM";
+				return `${r.date}-${period}`;
+			});
+
+		// 3. Fusionne et déduplique
+		return [...new Set([...blocked, ...reservedSlots])];
 	}
 }
 
