@@ -16,6 +16,7 @@ function Header() {
 	};
 	const { totalArticles, panier, supprimerDuPanier, total } = usePanier();
 	const [afficherPanier, setAfficherPanier] = useState(false);
+	const [menuOuvert, setMenuOuvert] = useState(false);
 	const { user, isAuthenticated, logout } = useAuth();
 	const navigate = useNavigate();
 
@@ -44,17 +45,31 @@ function Header() {
 				</button>
 
 				{/* Navigation au centre */}
-				<div className="header-nav-links">
-					<Link to="/">Accueil</Link>
-					<Link to="/menu">Les Menus</Link>
-					<Link to="/galerie">Galerie</Link>
-					<Link to="/reservation">Réservations</Link>
+				<div className={`header-nav-links${menuOuvert ? " ouvert" : ""}`}>
+					<Link to="/" onClick={() => setMenuOuvert(false)}>
+						Accueil
+					</Link>
+					<Link to="/menu" onClick={() => setMenuOuvert(false)}>
+						Les Menus
+					</Link>
+					<Link to="/galerie" onClick={() => setMenuOuvert(false)}>
+						Galerie
+					</Link>
+					<Link to="/reservation" onClick={() => setMenuOuvert(false)}>
+						Réservations
+					</Link>
 					{isAuthenticated ? (
-						<Link to="/admin" className="admin-link">
+						<Link
+							to="/admin"
+							className="admin-link"
+							onClick={() => setMenuOuvert(false)}
+						>
 							Back-Office
 						</Link>
 					) : (
-						<Link to="/login">Connexion</Link>
+						<Link to="/login" onClick={() => setMenuOuvert(false)}>
+							Connexion
+						</Link>
 					)}
 					<div className="panier-icon-container">
 						<button
@@ -86,6 +101,18 @@ function Header() {
 						</div>
 					)}
 				</div>
+
+				{/* Bouton hamburger (mobile) */}
+				<button
+					type="button"
+					className={`hamburger-btn${menuOuvert ? " ouvert" : ""}`}
+					onClick={() => setMenuOuvert(!menuOuvert)}
+					aria-label={menuOuvert ? "Fermer le menu" : "Ouvrir le menu"}
+				>
+					<span />
+					<span />
+					<span />
+				</button>
 			</nav>
 
 			{afficherPanier && (
@@ -153,7 +180,7 @@ function Header() {
 			<div className="header-content">
 				<h1 className="header-title">Gastronomique</h1>
 				<p className="header-subtitle">
-					Une cuisine d'auteur, local et moyante.
+					Une cuisine d'auteur, locale et innovante.
 				</p>
 				<div className="header-actions">
 					<Link to="/reservation" className="btn-primary">

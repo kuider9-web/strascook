@@ -444,36 +444,114 @@
 	}
 }
 
-@media (max-width: 768px) {
+/* ========================================
+   HAMBURGER BUTTON
+   ======================================== */
+.hamburger-btn {
+	display: none;
+	flex-direction: column;
+	gap: 5px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0.5rem;
+	z-index: 1001;
+}
+
+.hamburger-btn span {
+	display: block;
+	width: 24px;
+	height: 2px;
+	background: white;
+	border-radius: 2px;
+	transition: all 0.3s ease;
+	transform-origin: center;
+}
+
+.hamburger-btn.ouvert span:nth-child(1) {
+	transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.ouvert span:nth-child(2) {
+	opacity: 0;
+	transform: scaleX(0);
+}
+
+.hamburger-btn.ouvert span:nth-child(3) {
+	transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 800px) {
 	.header {
 		height: 500px;
 	}
 
 	.header-nav {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0.3rem 1rem;
+		padding: 0.4rem 1rem;
 	}
 
 	.header-logo {
+		order: 1;
 		justify-content: flex-start;
 	}
 
 	.header-logo img {
-		height: 50px;
+		height: 55px;
+	}
+
+	.header-right {
+		order: 2;
+	}
+
+	.hamburger-btn {
+		display: flex;
+		order: 3;
 	}
 
 	.header-nav-links {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		gap: 1rem;
-		justify-content: center;
+		display: none;
+		order: 4;
+		width: 100%;
+		flex-direction: column;
+		gap: 0;
+		padding: 0.5rem 0;
+		border-top: 1px solid rgba(201, 169, 97, 0.3);
+		background: rgba(0, 0, 0, 0.75);
+		backdrop-filter: blur(10px);
+	}
+
+	.header-nav-links.ouvert {
+		display: flex;
 	}
 
 	.header-nav-links a {
-		font-size: 0.75rem;
+		color: white;
+		font-size: 1rem;
+		padding: 0.85rem 1.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		text-shadow: none;
+		transition: all 0.2s ease;
+	}
+
+	.header-nav-links a:hover {
+		background: rgba(201, 169, 97, 0.15);
+		color: var(--accent-light);
+		padding-left: 2rem;
+		transform: none;
+	}
+
+	.header-nav-links a::after {
+		display: none;
+	}
+
+	.panier-icon-container {
+		padding: 0.6rem 1.5rem;
+		display: flex;
+		align-items: center;
 	}
 
 	.header-title {
@@ -521,15 +599,6 @@
 
 	.header-logo img {
 		height: 45px;
-	}
-
-	.header-nav-links {
-		gap: 0.7rem;
-	}
-
-	.header-nav-links a {
-		font-size: 0.7rem;
-		padding: 0.3rem 0;
 	}
 
 	.header-title {
