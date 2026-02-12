@@ -1,98 +1,202 @@
 import { useEffect, useState } from "react";
-import type { Reservation } from "../../utils/localStorage";
-import {
-	getReservations,
-	updateReservationStatus,
-} from "../../utils/localStorage";
+import type { Reservation } from "../../services/dataSync";
+import DataSyncService from "../../services/dataSync";
 import "./ReservationManagement.css";
 
 function ReservationManagement() {
 	const [reservations, setReservations] = useState<Reservation[]>([]);
-	const [successMessage, setSuccessMessage] = useState("");
+	const [filterStatus, setFilterStatus] = useState<
+		"all" | Reservation["status"]
+	>("all");
 
 	useEffect(() => {
-		setReservations(getReservations());
+		loadReservations();
+
+		// Écoute les changements depuis l'espace client
+		const handleUpdate = () => {
+			loadReservations();
+		};
+
+		window.addEventListener("reservationsUpdated", handleUpdate);
+
+		return () => {
+			window.removeEventListener("reservationsUpdated", handleUpdate);
+		};
 	}, []);
 
-	const showSuccess = (message: string) => {
-		setSuccessMessage(message);
-		setTimeout(() => setSuccessMessage(""), 3000);
+	const loadReservations = () => {
+		const allReservations = DataSyncService.getReservations();
+		setReservations(allReservations);
 	};
 
-	const handleAccept = (id: number) => {
-		updateReservationStatus(id, "accepted");
-		setReservations(getReservations());
-		showSuccess("✅ Réservation acceptée !");
+	const handleStatusChange = (id: string, status: Reservation["status"]) => {
+		DataSyncService.updateReservationStatus(id, status);
+		loadReservations();
 	};
 
-	const handleRefuse = (id: number) => {
-		if (window.confirm("Refuser cette réservation ?")) {
-			updateReservationStatus(id, "refused");
-			setReservations(getReservations());
-			showSuccess("❌ Réservation refusée");
+	const handleDelete = (id: string) => {
+		if (confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?")) {
+			DataSyncService.deleteReservation(id);
+			loadReservations();
 		}
 	};
 
-	const getStatusBadge = (status: string) => {
-		const badges = {
-			pending: { label: "En attente", color: "orange" },
-			accepted: { label: "Acceptée", color: "green" },
-			refused: { label: "Refusée", color: "red" },
-		};
-		return badges[status as keyof typeof badges];
+	const filteredReservations =
+		filterStatus === "all"
+			? reservations
+			: reservations.filter((r) => r.status === filterStatus);
+
+	const getStatusColor = (status: Reservation["status"]) => {
+		switch (status) {
+			case "pending":
+				return "#f39c12";
+			case "confirmed":
+				return "#27ae60";
+			case "cancelled":
+				return "#c0392b";
+			default:
+				return "#95a5a6";
+		}
+	};
+
+	const getStatusLabel = (status: Reservation["status"]) => {
+		switch (status) {
+			case "pending":
+				return "En attente";
+			case "confirmed":
+				return "Confirmée";
+			case "cancelled":
+				return "Annulée";
+		}
 	};
 
 	return (
 		<div className="reservation-management">
-			<h2> Gestion des Réservations</h2>
+			<h1>Gestion des Réservations</h1>
 
-			{successMessage && (
-				<div className="success-message">{successMessage}</div>
-			)}
+			<div className="filters">
+				<button
+					type="button"
+					onClick={() => setFilterStatus("all")}
+					className={filterStatus === "all" ? "active" : ""}
+				>
+					Toutes ({reservations.length})
+				</button>
+				<button
+					type="button"
+					onClick={() => setFilterStatus("pending")}
+					className={filterStatus === "pending" ? "active" : ""}
+				>
+					En attente (
+					{reservations.filter((r) => r.status === "pending").length})
+				</button>
+				<button
+					type="button"
+					onClick={() => setFilterStatus("confirmed")}
+					className={filterStatus === "confirmed" ? "active" : ""}
+				>
+					Confirmées (
+					{reservations.filter((r) => r.status === "confirmed").length})
+				</button>
+				<button
+					type="button"
+					onClick={() => setFilterStatus("cancelled")}
+					className={filterStatus === "cancelled" ? "active" : ""}
+				>
+					Annulées (
+					{reservations.filter((r) => r.status === "cancelled").length})
+				</button>
+			</div>
 
-			{reservations.length === 0 ? (
-				<p className="no-data">Aucune réservation pour le moment.</p>
+			{filteredReservations.length === 0 ? (
+				<p className="no-reservations">Aucune réservation trouvée.</p>
 			) : (
-				<div className="reservation-table">
-					{reservations.map((reservation) => {
-						const badge = getStatusBadge(reservation.status);
-						return (
-							<div key={reservation.id} className="reservation-row">
-								<div className="reservation-info">
-									<span className={`status-badge ${badge.color}`}>
-										{badge.label}
-									</span>
-									<h3>{reservation.clientName}</h3>
-									<p>
-										{reservation.date} à {reservation.time}
-									</p>
-									<p>
-										{reservation.guests} personne
-										{reservation.guests > 1 ? "s" : ""}
-									</p>
-								</div>
+				<div className="reservations-list">
+					{filteredReservations.map((reservation) => (
+						<div key={reservation.id} className="reservation-card">
+							<div className="reservation-header">
+								<h3>{reservation.clientName}</h3>
+								<span
+									className="status-badge"
+									style={{
+										backgroundColor: getStatusColor(reservation.status),
+									}}
+								>
+									{getStatusLabel(reservation.status)}
+								</span>
+							</div>
 
-								{reservation.status === "pending" && (
-									<div className="reservation-actions">
-										<button
-											type="button"
-											className="btn-accept"
-											onClick={() => handleAccept(reservation.id)}
-										>
-											✅ Accepter
-										</button>
-										<button
-											type="button"
-											className="btn-refuse"
-											onClick={() => handleRefuse(reservation.id)}
-										>
-											❌ Refuser
-										</button>
+							<div className="reservation-details">
+								<p>
+									<strong>Date :</strong> {reservation.date} à{" "}
+									{reservation.time}
+								</p>
+								<p>
+									<strong>Convives :</strong> {reservation.guests}
+								</p>
+								<p>
+									<strong>Email :</strong> {reservation.clientEmail}
+								</p>
+								<p>
+									<strong>Téléphone :</strong> {reservation.clientPhone}
+								</p>
+								<p>
+									<strong>Total :</strong> {reservation.totalPrice.toFixed(2)}€
+								</p>
+
+								{reservation.notes && (
+									<p>
+										<strong>Notes :</strong> {reservation.notes}
+									</p>
+								)}
+
+								{reservation.menus.length > 0 && (
+									<div className="reservation-menus">
+										<strong>Menus sélectionnés :</strong>
+										<ul>
+											{reservation.menus.map((menu) => (
+												<li key={menu.nom}>
+													{menu.nom} x{menu.quantiter}
+												</li>
+											))}
+										</ul>
 									</div>
 								)}
 							</div>
-						);
-					})}
+
+							<div className="reservation-actions">
+								{reservation.status === "pending" && (
+									<>
+										<button
+											type="button"
+											onClick={() =>
+												handleStatusChange(reservation.id, "confirmed")
+											}
+											className="btn-confirm"
+										>
+											✓ Confirmer
+										</button>
+										<button
+											type="button"
+											onClick={() =>
+												handleStatusChange(reservation.id, "cancelled")
+											}
+											className="btn-cancel"
+										>
+											✕ Annuler
+										</button>
+									</>
+								)}
+								<button
+									type="button"
+									onClick={() => handleDelete(reservation.id)}
+									className="btn-delete"
+								>
+									🗑️ Supprimer
+								</button>
+							</div>
+						</div>
+					))}
 				</div>
 			)}
 		</div>

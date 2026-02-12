@@ -11,6 +11,7 @@ interface PanierContextType {
 	panier: PanierItem[];
 	ajoutPanier: (produit: Omit<PanierItem, "quantiter">) => void;
 	supprimerDuPanier: (nom: string) => void;
+	viderPanier: () => void; // ← AJOUTÉ
 	totalArticles: number;
 	total: number;
 }
@@ -55,6 +56,11 @@ function PanierProvider({ children }: { children: React.ReactNode }) {
 		}
 	}
 
+	// ← FONCTION AJOUTÉE
+	function viderPanier() {
+		setPanier([]);
+	}
+
 	const totalArticles = panier.reduce((acc, item) => acc + item.quantiter, 0);
 	const total = panier.reduce(
 		(acc, item) => acc + parseFloat(item.prix) * item.quantiter,
@@ -67,6 +73,7 @@ function PanierProvider({ children }: { children: React.ReactNode }) {
 				panier,
 				ajoutPanier,
 				supprimerDuPanier,
+				viderPanier, // ← AJOUTÉ
 				totalArticles,
 				total,
 			}}
