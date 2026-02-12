@@ -207,3 +207,32 @@
 		font-size: 28px;
 	}
 }
+
+@media (max-width: 375px) {
+	.login-card {
+		padding: 24px 16px;
+	}
+
+	.login-header h1 {
+		font-size: 22px;
+	}
+
+	.login-subtitle {
+		font-size: 12px;
+	}
+
+	.form-group input {
+		padding: 11px 12px;
+		font-size: 14px;
+	}
+
+	.login-button {
+		padding: 13px;
+		font-size: 14px;
+	}
+
+	.demo-account {
+		width: auto;
+		padding: 12px;
+	}
+}
