@@ -25,6 +25,8 @@ function MenuManagement() {
 	const [editingPlat, setEditingPlat] = useState<Plat | null>(null);
 	const [successMessage, setSuccessMessage] = useState("");
 
+	const [ingredientsRaw, setIngredientsRaw] = useState("");
+
 	const [formData, setFormData] = useState<Omit<Plat, "id" | "isCustom">>({
 		nom: "",
 		categorie: "plat",
@@ -98,11 +100,9 @@ function MenuManagement() {
 	const handleIngredientsChange = (
 		e: React.ChangeEvent<HTMLTextAreaElement>,
 	) => {
-		const ingredients = e.target.value
-			.split("\n")
-			.map((ing) => ing.trim())
-			.filter((ing) => ing.length > 0);
-
+		const raw = e.target.value;
+		setIngredientsRaw(raw);
+		const ingredients = raw.split("\n").filter((ing) => ing.trim().length > 0);
 		setFormData((prev) => ({ ...prev, ingredients }));
 	};
 
@@ -135,6 +135,7 @@ function MenuManagement() {
 			sans_lactose: plat.sans_lactose,
 			image_URL: plat.image_URL,
 		});
+		setIngredientsRaw(plat.ingredients?.join("\n") || "");
 		setIsFormOpen(true);
 	};
 
@@ -159,6 +160,7 @@ function MenuManagement() {
 			sans_lactose: false,
 			image_URL: "",
 		});
+		setIngredientsRaw("");
 		setEditingPlat(null);
 		setIsFormOpen(false);
 	};
@@ -405,7 +407,7 @@ function MenuManagement() {
 										<textarea
 											id="ingredients"
 											name="ingredients"
-											value={formData.ingredients?.join("\n") || ""}
+											value={ingredientsRaw}
 											onChange={handleIngredientsChange}
 											rows={4}
 										/>
