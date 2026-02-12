@@ -34,7 +34,7 @@ function Header() {
 				<source src="/video_header.mp4" type="video/mp4" />
 				Votre navigateur ne supporte pas la vidéo.
 			</video>
-			<div className="header-overlay"></div>
+			<div className="header-overlay" />
 
 			{/* Navbar sticky */}
 			<nav className="header-nav">
@@ -49,40 +49,45 @@ function Header() {
 					<Link to="/menu">Les Menus</Link>
 					<Link to="/galerie">Galerie</Link>
 					<Link to="/reservation">Réservations</Link>
-				<Link to="/">Accueil</Link>
-				<Link to="/menu">Les Menus</Link>
-				<Link to="/galerie">Galerie</Link>
-				<Link to="/reservation">Réservations</Link>
-				{isAuthenticated && (
-					<Link to="/admin" className="admin-link">
-						Back-Office
-					</Link>
-				)}
-				{isAuthenticated ? (
-					<div className="user-menu">
-						<span className="user-name">👤 {user?.name}</span>
-						<button type="button" className="logout-btn" onClick={handleLogout}>
-							Déconnexion
-						</button>
-					</div>
-				) : (
-					<Link to="/login" className="login-link">
-						Connexion
-					</Link>
-				)}
-
-				<div className="panier-icon-container">
-					<button
-						type="button"
-						className="panier-btn"
-						onClick={() => setAfficherPanier(!afficherPanier)}
-						aria-label="Ouvrir le panier"
-					>
-						<img src={panierIcone} alt="Panier" />
-					</button>
-					{totalArticles > 0 && (
-						<span className="panier-badge">{totalArticles}</span>
+					{isAuthenticated && (
+						<Link to="/admin" className="admin-link">
+							Back-Office
+						</Link>
 					)}
+				</div>
+
+				{/* User menu ou login + panier à droite */}
+				<div className="header-right">
+					{isAuthenticated ? (
+						<div className="user-menu">
+							<span className="user-name">👤 {user?.name}</span>
+							<button
+								type="button"
+								className="logout-btn"
+								onClick={handleLogout}
+							>
+								Déconnexion
+							</button>
+						</div>
+					) : (
+						<Link to="/login" className="login-link">
+							Connexion
+						</Link>
+					)}
+
+					<div className="panier-icon-container">
+						<button
+							type="button"
+							className="panier-btn"
+							onClick={() => setAfficherPanier(!afficherPanier)}
+							aria-label="Ouvrir le panier"
+						>
+							<img src={panierIcone} alt="Panier" />
+						</button>
+						{totalArticles > 0 && (
+							<span className="panier-badge">{totalArticles}</span>
+						)}
+					</div>
 				</div>
 			</nav>
 
