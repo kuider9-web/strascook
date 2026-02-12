@@ -38,27 +38,6 @@ function Header() {
 
 			{/* Navbar sticky */}
 			<nav className="header-nav">
-				<Link to="/">Accueil</Link>
-				<Link to="/menu">Les Menus</Link>
-				<Link to="/galerie">Galerie</Link>
-				<Link to="/reservation">Réservations</Link>
-				{isAuthenticated && (
-					<Link to="/admin" className="admin-link">
-						Back-Office
-					</Link>
-				)}
-				{isAuthenticated ? (
-					<div className="user-menu">
-						<span className="user-name"> {user?.name} </span>
-						<button type="button" className="logout-btn" onClick={handleLogout}>
-							Déconnexion
-						</button>
-					</div>
-				) : (
-					<Link to="/login" className="login-link">
-						Connexion
-					</Link>
-				)}
 				{/* Logo cliquable qui remonte */}
 				<button onClick={scrollToTop} className="header-logo" type="button">
 					<img src={logo} alt="Gastronomique Logo" />
@@ -70,32 +49,13 @@ function Header() {
 					<Link to="/menu">Les Menus</Link>
 					<Link to="/galerie">Galerie</Link>
 					<Link to="/reservation">Réservations</Link>
-					{isAuthenticated && (
+					{isAuthenticated ? (
 						<Link to="/admin" className="admin-link">
 							Back-Office
 						</Link>
-					)}
-				</div>
-
-				{/* User menu ou login + panier à droite */}
-				<div className="header-right">
-					{isAuthenticated ? (
-						<div className="user-menu">
-							<span className="user-name">👤 {user?.name}</span>
-							<button
-								type="button"
-								className="logout-btn"
-								onClick={handleLogout}
-							>
-								Déconnexion
-							</button>
-						</div>
 					) : (
-						<Link to="/login" className="login-link">
-							Connexion
-						</Link>
+						<Link to="/login">Connexion</Link>
 					)}
-
 					<div className="panier-icon-container">
 						<button
 							type="button"
@@ -109,6 +69,22 @@ function Header() {
 							<span className="panier-badge">{totalArticles}</span>
 						)}
 					</div>
+				</div>
+
+				{/* Nom utilisateur + déconnexion à droite */}
+				<div className="header-right">
+					{isAuthenticated && (
+						<div className="user-menu">
+							<span className="user-name">{user?.name}</span>
+							<button
+								type="button"
+								className="logout-btn"
+								onClick={handleLogout}
+							>
+								Déconnexion
+							</button>
+						</div>
+					)}
 				</div>
 			</nav>
 

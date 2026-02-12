@@ -126,3 +126,81 @@
 	border-color: white;
 	transform: translateY(-2px);
 }
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+@media (max-width: 768px) {
+	.back-office {
+		padding: 15px;
+	}
+
+	.bo-header {
+		padding: 25px 20px 25px;
+	}
+
+	.bo-header h1 {
+		font-size: 1.8rem;
+		letter-spacing: 2px;
+	}
+
+	.header-info {
+		position: static;
+		justify-content: center;
+		margin-top: 12px;
+	}
+
+	.bo-nav {
+		gap: 10px;
+	}
+
+	.bo-nav button {
+		padding: 12px 16px;
+		font-size: 0.95rem;
+		min-width: 100px;
+	}
+
+	.bo-content {
+		padding: 20px;
+	}
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+@media (max-width: 480px) {
+	.bo-header {
+		padding: 20px 15px;
+	}
+
+	.bo-header h1 {
+		font-size: 1.4rem;
+		letter-spacing: 1px;
+	}
+
+	.bo-nav {
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.bo-nav button {
+		width: 100%;
+		min-width: unset;
+		padding: 12px;
+		font-size: 0.9rem;
+	}
+
+	.bo-content {
+		padding: 15px;
+		min-height: auto;
+	}
+
+	.user-role {
+		font-size: 0.8rem;
+	}
+
+	.logout-btn {
+		padding: 0.5rem 1rem;
+		font-size: 0.85rem;
+	}
+}
