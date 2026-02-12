@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePanier } from "../context/PanierContext";
+import type { MenuFilters } from "../services/dataSync";
+import DataSyncService from "../services/dataSync";
 import "./Galerie.css";
 
 interface Dish {
@@ -13,7 +15,7 @@ interface Dish {
 	sans_gluten: boolean;
 	sans_lactose: boolean;
 	image_URL: string;
-	prix?: string; // Prix individuel (optionnel pour l'instant)
+	prix?: string;
 }
 
 interface Menu {
@@ -45,45 +47,121 @@ const Galerie = () => {
 	const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
 	const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
 
-	// Récupération des données de l'API
-	useEffect(() => {
-		const fetchDishes = async () => {
-			try {
-				setLoading(true);
-				const response = await fetch("https://api-strascook.vercel.app/items");
+	// 🔥 Fonction pour charger tous les plats (API + personnalisés)
+	const loadAllDishes = async () => {
+		try {
+			setLoading(true);
 
-				if (!response.ok) {
-					throw new Error("Erreur lors de la récupération des données");
-				}
+			// 1. Récupère les plats de l'API
+			const response = await fetch("https://api-strascook.vercel.app/items");
 
-				const data: Menu[] = await response.json();
-				setMenus(data);
-
-				// Extraire tous les plats de tous les menus
-				const dishes: Dish[] = [];
-				for (const menu of data) {
-					dishes.push(...menu.entrees, ...menu.plats, ...menu.desserts);
-				}
-
-				setAllDishes(dishes);
-				setFilteredDishes(dishes);
-				setLoading(false);
-			} catch (err) {
-				setError(
-					err instanceof Error ? err.message : "Une erreur est survenue",
-				);
-				setLoading(false);
+			if (!response.ok) {
+				throw new Error("Erreur lors de la récupération des données");
 			}
-		};
 
-		fetchDishes();
+			const data: Menu[] = await response.json();
+			setMenus(data);
+
+			// Extraire tous les plats de l'API
+			const apiDishes: Dish[] = [];
+			for (const menu of data) {
+				apiDishes.push(...menu.entrees, ...menu.plats, ...menu.desserts);
+			}
+
+			// 2. Récupère les plats personnalisés du chef
+			const customPlats = DataSyncService.getCustomPlats();
+
+			// Convertir les plats personnalisés au format Dish
+			const customDishes: Dish[] = customPlats.map((plat) => ({
+				categorie: plat.categorie,
+				nom: plat.nom,
+				description: plat.description || "",
+				ingredients: plat.ingredients || [],
+				vegetalien: plat.vegetalien,
+				vegetarien: plat.vegetarien,
+				sans_gluten: plat.sans_gluten,
+				sans_lactose: plat.sans_lactose,
+				image_URL: plat.image_URL,
+				prix: plat.prix,
+			}));
+
+			// 3. Fusionne les plats de l'API + les plats perso
+			const allDishesData = [...apiDishes, ...customDishes];
+
+			setAllDishes(allDishesData);
+			setFilteredDishes(allDishesData);
+			setLoading(false);
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Une erreur est survenue");
+			setLoading(false);
+		}
+	};
+
+	// Chargement initial
+	useEffect(() => {
+		loadAllDishes();
 	}, []);
 
-	// Filtrage des plats
+	// Écoute les ajouts/suppressions de plats perso
+	useEffect(() => {
+		const handlePlatsUpdate = () => {
+			loadAllDishes(); // Recharge tout
+		};
+
+		window.addEventListener("platsUpdated", handlePlatsUpdate);
+
+		return () => {
+			window.removeEventListener("platsUpdated", handlePlatsUpdate);
+		};
+	}, []);
+
+	// Écoute les changements de filtres du chef
+	useEffect(() => {
+		const handleFiltersUpdate = () => {
+			setDietaryFilter((prev) => prev);
+		};
+
+		window.addEventListener("menuFiltersUpdated", handleFiltersUpdate);
+
+		return () => {
+			window.removeEventListener("menuFiltersUpdated", handleFiltersUpdate);
+		};
+	}, []);
+
+	// Filtrage des plats (avec filtres du chef + filtres utilisateur)
 	useEffect(() => {
 		let filtered = [...allDishes];
 
-		// Filtre diététique
+		// ÉTAPE 1 : Applique les filtres du CHEF
+		const chefFilters: MenuFilters = DataSyncService.getMenuFilters();
+
+		const activeDietFilters = [
+			chefFilters.vegetarien,
+			chefFilters.vegetalien,
+			chefFilters.sans_gluten,
+			chefFilters.sans_lactose,
+		];
+		const hasAnyDietFilter = activeDietFilters.some((f) => f === true);
+
+		if (hasAnyDietFilter) {
+			filtered = filtered.filter((dish) => {
+				return (
+					(chefFilters.vegetarien && dish.vegetarien) ||
+					(chefFilters.vegetalien && dish.vegetalien) ||
+					(chefFilters.sans_gluten && dish.sans_gluten) ||
+					(chefFilters.sans_lactose && dish.sans_lactose)
+				);
+			});
+		}
+
+		filtered = filtered.filter((dish) => {
+			if (dish.categorie === "entree") return chefFilters.entrees;
+			if (dish.categorie === "plat") return chefFilters.plats;
+			if (dish.categorie === "dessert") return chefFilters.desserts;
+			return true;
+		});
+
+		// ÉTAPE 2 : Applique les filtres de l'UTILISATEUR
 		if (dietaryFilter !== "all") {
 			filtered = filtered.filter((dish) => {
 				switch (dietaryFilter) {
@@ -101,7 +179,6 @@ const Galerie = () => {
 			});
 		}
 
-		// Filtre par catégorie
 		if (categoryFilter !== "all") {
 			filtered = filtered.filter((dish) => dish.categorie === categoryFilter);
 		}
@@ -143,7 +220,6 @@ const Galerie = () => {
 		dessert: "Desserts",
 	};
 
-	// Fonction pour obtenir les badges d'un plat
 	const getDishBadges = (dish: Dish) => {
 		const badges = [];
 		if (dish.vegetalien)
@@ -190,7 +266,6 @@ const Galerie = () => {
 				</p>
 			</header>
 
-			{/* Filtres diététiques */}
 			<nav className="galerie-filters">
 				<div className="filter-group">
 					<h3>Préférences alimentaires</h3>
@@ -208,7 +283,6 @@ const Galerie = () => {
 					</div>
 				</div>
 
-				{/* Filtres par catégorie */}
 				<div className="filter-group">
 					<h3>Type de plat</h3>
 					<div className="filter-buttons">
@@ -228,7 +302,6 @@ const Galerie = () => {
 				</div>
 			</nav>
 
-			{/* Compteur de résultats */}
 			<div className="results-count">
 				<p>
 					{filteredDishes.length} {filteredDishes.length > 1 ? "plats" : "plat"}{" "}
@@ -236,7 +309,6 @@ const Galerie = () => {
 				</p>
 			</div>
 
-			{/* Grille d'images */}
 			<div className="galerie-grid">
 				{filteredDishes.map((dish, index) => (
 					<button
@@ -264,7 +336,6 @@ const Galerie = () => {
 				))}
 			</div>
 
-			{/* Message si aucune image */}
 			{filteredDishes.length === 0 && (
 				<div className="galerie-empty">
 					<p>😔 Aucun plat ne correspond à vos critères.</p>
@@ -281,7 +352,6 @@ const Galerie = () => {
 				</div>
 			)}
 
-			{/* Modal détaillé */}
 			{selectedDish && (
 				<div
 					className="galerie-modal"
@@ -322,7 +392,6 @@ const Galerie = () => {
 								<p className="dish-description">{selectedDish.description}</p>
 							)}
 
-							{/* Badges diététiques */}
 							<div className="dish-badges">
 								{getDishBadges(selectedDish).map((badge) => (
 									<span
@@ -335,7 +404,6 @@ const Galerie = () => {
 								))}
 							</div>
 
-							{/* Ingrédients */}
 							<div className="dish-ingredients">
 								<h3>Ingrédients</h3>
 								<ul>
@@ -345,15 +413,12 @@ const Galerie = () => {
 								</ul>
 							</div>
 
-							{/* Prix (si disponible) */}
 							{selectedDish.prix && (
 								<div className="dish-price">
 									<span className="price-label">Prix :</span>
 									<span className="price-value">{selectedDish.prix}</span>
 								</div>
 							)}
-
-							{/* Bouton Ajouter au panier */}
 
 							<button
 								type="button"

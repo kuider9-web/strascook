@@ -146,6 +146,9 @@
 }
 
 .demo-credentials {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	margin-top: 32px;
 	padding-top: 32px;
 	border-top: 2px solid #f0f0f0;
@@ -158,13 +161,9 @@
 	text-align: center;
 }
 
-.demo-accounts {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 16px;
-}
-
 .demo-account {
+	text-align: center;
+	width: 25vh;
 	background: #f8f9fa;
 	padding: 16px;
 	border-radius: 8px;

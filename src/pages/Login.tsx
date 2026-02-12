@@ -86,18 +86,13 @@ function Login() {
 
 					<div className="demo-credentials">
 						<p className="demo-title">
-							<strong>🔑 Comptes de démonstration</strong>
+							<strong> Comptes de démonstration</strong>
 						</p>
 						<div className="demo-accounts">
 							<div className="demo-account">
-								<p className="demo-role">Administrateur</p>
-								<p>📧 admin@strascook.fr</p>
-								<p>🔒 admin123</p>
-							</div>
-							<div className="demo-account">
 								<p className="demo-role">Chef Cuisinier</p>
-								<p>📧 chef@strascook.fr</p>
-								<p>🔒 chef123</p>
+								<p> chef@strascook.fr</p>
+								<p> chef123</p>
 							</div>
 						</div>
 					</div>

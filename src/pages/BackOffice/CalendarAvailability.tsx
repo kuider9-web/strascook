@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getBlockedDates, toggleBlockedDate } from "../../utils/localStorage";
+import DataSyncService from "../../services/dataSync";
 import "./CalendarAvailability.css";
 
 function CalendarAvailability() {
@@ -8,8 +8,25 @@ function CalendarAvailability() {
 	const [successMessage, setSuccessMessage] = useState("");
 
 	useEffect(() => {
-		setBlockedDates(getBlockedDates());
+		loadDates();
+
+		const handleUpdate = () => {
+			loadDates();
+		};
+
+		window.addEventListener("reservationsUpdated", handleUpdate);
+		window.addEventListener("datesUpdated", handleUpdate);
+
+		return () => {
+			window.removeEventListener("reservationsUpdated", handleUpdate);
+			window.removeEventListener("datesUpdated", handleUpdate);
+		};
 	}, []);
+
+	const loadDates = () => {
+		const unavailable = DataSyncService.getUnavailableDates();
+		setBlockedDates(unavailable);
+	};
 
 	const showSuccess = (message: string) => {
 		setSuccessMessage(message);
@@ -31,14 +48,63 @@ function CalendarAvailability() {
 		return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 	};
 
+	const getDayStatus = (dateStr: string) => {
+		const hasAM = blockedDates.includes(`${dateStr}-AM`);
+		const hasPM = blockedDates.includes(`${dateStr}-PM`);
+		const fullDay = blockedDates.includes(dateStr);
+
+		if (fullDay || (hasAM && hasPM)) {
+			return { status: "full", icon: "🔒", label: "Journée complète" };
+		}
+		if (hasAM) {
+			return { status: "am", icon: "🌅", label: "Matinée réservée" };
+		}
+		if (hasPM) {
+			return { status: "pm", icon: "🌆", label: "Après-midi réservée" };
+		}
+		return { status: "available", icon: "✅", label: "Disponible" };
+	};
+
 	const handleDateClick = (dateStr: string) => {
-		const updated = toggleBlockedDate(dateStr);
-		setBlockedDates(updated);
+		const reservations = DataSyncService.getReservations();
+
+		// Vérifie si AM ou PM sont réservés
+		const hasAM = reservations.some(
+			(r) =>
+				r.date === dateStr &&
+				r.status === "confirmed" &&
+				parseInt(r.time.split(":")[0], 10) < 14,
+		);
+		const hasPM = reservations.some(
+			(r) =>
+				r.date === dateStr &&
+				r.status === "confirmed" &&
+				parseInt(r.time.split(":")[0], 10) >= 14,
+		);
+
+		if (hasAM && hasPM) {
+			alert(
+				"⚠️ Cette journée est complètement réservée (matin ET après-midi). Vous ne pouvez pas la modifier.",
+			);
+			return;
+		}
+
+		if (hasAM || hasPM) {
+			const period = hasAM ? "matinée" : "après-midi";
+			alert(
+				`⚠️ La ${period} de cette date a une réservation confirmée.\n\nPour bloquer toute la journée, vous devez d'abord annuler la réservation.`,
+			);
+			return;
+		}
+
+		// Bloque/débloque la journée entière
+		const updated = DataSyncService.toggleBlockedDate(dateStr);
+		setBlockedDates(DataSyncService.getUnavailableDates());
 
 		if (updated.includes(dateStr)) {
-			showSuccess("🔒 Date bloquée");
+			showSuccess("🔒 Journée bloquée");
 		} else {
-			showSuccess("✅ Date débloquée");
+			showSuccess("✅ Journée débloquée");
 		}
 	};
 
@@ -68,12 +134,12 @@ function CalendarAvailability() {
 
 	const days = [];
 	for (let i = 0; i < startingDayOfWeek; i++) {
-		days.push(<div key={`empty-${i}`} className="calendar-day empty"></div>);
+		days.push(<div key={`empty-${i}`} className="calendar-day empty" />);
 	}
 
 	for (let day = 1; day <= daysInMonth; day++) {
 		const dateStr = formatDate(year, month, day);
-		const isBlocked = blockedDates.includes(dateStr);
+		const dayStatus = getDayStatus(dateStr);
 		const isPast =
 			new Date(dateStr) < new Date(new Date().setHours(0, 0, 0, 0));
 
@@ -81,12 +147,13 @@ function CalendarAvailability() {
 			<button
 				key={day}
 				type="button"
-				className={`calendar-day ${isBlocked ? "blocked" : "available"} ${isPast ? "past" : ""}`}
+				className={`calendar-day ${dayStatus.status} ${isPast ? "past" : ""}`}
 				onClick={() => !isPast && handleDateClick(dateStr)}
 				disabled={isPast}
+				title={dayStatus.label}
 			>
 				<span className="day-number">{day}</span>
-				<span className="day-status">{isBlocked ? "🔒" : "✅"}</span>
+				<span className="day-status">{dayStatus.icon}</span>
 			</button>,
 		);
 	}
@@ -116,7 +183,13 @@ function CalendarAvailability() {
 					<span className="legend-icon available">✅</span> Disponible
 				</span>
 				<span>
-					<span className="legend-icon blocked">🔒</span> Bloqué
+					<span className="legend-icon am">🌅</span> Matinée réservée
+				</span>
+				<span>
+					<span className="legend-icon pm">🌆</span> Après-midi réservée
+				</span>
+				<span>
+					<span className="legend-icon full">🔒</span> Journée complète
 				</span>
 			</div>
 
@@ -132,7 +205,9 @@ function CalendarAvailability() {
 			</div>
 
 			<p className="calendar-info">
-				Cliquez sur une date pour la bloquer ou la débloquer
+				Cliquez sur une date pour bloquer/débloquer la journée entière. Les
+				créneaux (matinée/après-midi) avec réservations confirmées sont
+				protégés.
 			</p>
 		</div>
 	);

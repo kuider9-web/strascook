@@ -38,6 +38,27 @@ function Header() {
 
 			{/* Navbar sticky */}
 			<nav className="header-nav">
+				<Link to="/">Accueil</Link>
+				<Link to="/menu">Les Menus</Link>
+				<Link to="/galerie">Galerie</Link>
+				<Link to="/reservation">Réservations</Link>
+				{isAuthenticated && (
+					<Link to="/admin" className="admin-link">
+						Back-Office
+					</Link>
+				)}
+				{isAuthenticated ? (
+					<div className="user-menu">
+						<span className="user-name"> {user?.name} </span>
+						<button type="button" className="logout-btn" onClick={handleLogout}>
+							Déconnexion
+						</button>
+					</div>
+				) : (
+					<Link to="/login" className="login-link">
+						Connexion
+					</Link>
+				)}
 				{/* Logo cliquable qui remonte */}
 				<button onClick={scrollToTop} className="header-logo" type="button">
 					<img src={logo} alt="Gastronomique Logo" />

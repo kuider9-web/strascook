@@ -192,7 +192,7 @@ function ReservationManagement() {
 									onClick={() => handleDelete(reservation.id)}
 									className="btn-delete"
 								>
-									🗑️ Supprimer
+									Supprimer
 								</button>
 							</div>
 						</div>
