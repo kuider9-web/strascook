@@ -40,7 +40,7 @@ function Home() {
 					La cuisine est avant tout un moment de partage.
 					<br />
 					Ici, elle s'invite chez vous sous forme de menus soigneusement pensés,
-					inspirés des tendances actuelles :<br />
+					inspirés des tendances actuelles : <br />
 					cuisine végétale, vegan, équilibrée ou créative.
 					<br />
 					Pas de mise en scène inutile :<br />
@@ -52,7 +52,7 @@ function Home() {
 				<div className="service">
 					<div className="clocheConteneur">
 						<img src={cloche} alt="cloche" className="cloche" />
-						<p>Cheffe à Domicile</p>
+						<p>Cheffe à domicile</p>
 					</div>
 					<div className="clocheConteneur">
 						<img src={cloche} alt="cloche" className="cloche" />
@@ -60,7 +60,7 @@ function Home() {
 					</div>
 					<div className="clocheConteneur">
 						<img src={cloche} alt="cloche" className="cloche" />
-						<p>Produits de saisons</p>
+						<p>Produits de saison</p>
 					</div>
 				</div>
 			</div>
@@ -79,17 +79,11 @@ function Home() {
 								: section.charAt(0).toUpperCase() + section.slice(1)}
 						</h3>
 						<p className="description">
-							La cuisine est avant tout un
-							<br />
-							moment de partage.
-							<br />
-							Ici, elle s'invite chez vous sous
-							<br />
-							forme de menus
-							<br />
-							soigneusement pensés,
-							<br />
-							inspirés des tendances.
+							{section === "menu"
+								? "Des menus végétaux, vegan ou gastronomiques, pensés selon vos envies et la saison."
+								: section === "galerie"
+									? "Découvrez en images l'univers culinaire de la cheffe, entre créativité et élégance."
+									: "Confiez-nous votre événement. Nous vous recontactons sous 24h pour construire votre menu."}
 						</p>
 					</a>
 				))}
@@ -109,25 +103,18 @@ function Home() {
 					</h3>
 				</div>
 				<p>
-					Offrez-vous les services d'un restaurant
-					<br />
-					gastronomique à votre domicile. Des plats dignes de
-					<br />
-					grands chefs étoilés seront préparés sous votre toit,
-					<br />
-					êtes-vous prêt à vivre une expérience culinaire unique ?
+					Offrez-vous les services d'un restaurant gastronomique à votre
+					domicile. Des plats dignes de grands chefs étoilés seront préparés
+					sous votre toit, êtes-vous prêt à vivre une expérience culinaire
+					unique ?
 				</p>
 			</div>
 
 			<div className="aPropo">
 				<p>
-					Confiez la mise en bouche de vos événements
-					<br />
-					professionnels à une cheffe privée reconnue.
-					<br />
-					Une large gamme de prestations a été pensée pour
-					<br />
-					séduire les plus exigeants d'entre vous.
+					Confiez la mise en bouche de vos événements professionnels à une
+					cheffe privée reconnue. Une large gamme de prestations a été pensée
+					pour séduire les plus exigeants d'entre vous.
 				</p>
 				<div>
 					<img src={cloche} alt="cloche" className="cloche" />
@@ -153,25 +140,16 @@ function Home() {
 					<img src={cloche} alt="cloche" className="cloche" />
 					<h3 className="concept">
 						Produits de
-						<br /> saisons.
+						<br /> saison.
 					</h3>
 				</div>
 				<p>
-					Chaque menu que je propose est une création
-					<br />
-					unique, pensée comme une rencontre entre la
-					<br />
-					nature, le moment et vous. Je compose mes plats
-					<br />
-					au rythme des saisons, en mettant à l'honneur des
-					<br />
-					produits frais et locaux, et soigneusement sélectionnés.
-					<br />
-					Plus qu'un simple repas, chaque menu
-					<br />
-					raconte une histoire : celle d'un terroir,
-					<br />
-					d'un instant, d'une émotion.
+					Chaque menu que je propose est une création unique, pensée comme une
+					rencontre entre la nature, le moment et vous. Je compose mes plats au
+					rythme des saisons, en mettant à l'honneur des produits frais, locaux
+					et soigneusement sélectionnés. Plus qu'un simple repas, chaque menu
+					raconte une histoire : celle d'un terroir, d'un instant, d'une
+					émotion.
 				</p>
 			</div>
 		</div>
