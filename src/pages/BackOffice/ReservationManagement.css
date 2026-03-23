@@ -4,7 +4,7 @@
 
 .reservation-management h2 {
 	font-size: 2.5rem;
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	font-weight: 300;
 	letter-spacing: 2px;
 	margin-bottom: 30px;
@@ -32,7 +32,7 @@
 .reservation-row {
 	background: white;
 	border: 1px solid #ddd;
-	border-radius: 2px;
+	border-radius: 10px;
 	padding: 20px;
 	display: flex;
 	justify-content: space-between;
@@ -49,7 +49,7 @@
 .reservation-info h3 {
 	margin: 10px 0;
 	font-size: 1.5rem;
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	font-weight: 300;
 	letter-spacing: 1px;
 	color: #000;
@@ -59,7 +59,7 @@
 	margin: 5px 0;
 	color: #666;
 	font-size: 1rem;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 }
 
 .status-badge {
@@ -68,7 +68,7 @@
 	border-radius: 20px;
 	font-size: 0.9rem;
 	font-weight: 500;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	margin-bottom: 10px;
@@ -101,10 +101,10 @@
 .btn-refuse {
 	padding: 15px 30px;
 	border: none;
-	border-radius: 2px;
+	border-radius: 10px;
 	font-size: 1.1rem;
 	font-weight: 500;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	letter-spacing: 0.5px;
 	cursor: pointer;
 	transition: all 0.3s;
@@ -138,7 +138,7 @@
 	color: #999;
 	font-size: 1.1rem;
 	padding: 40px;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 }
 
 .confirmation-message {

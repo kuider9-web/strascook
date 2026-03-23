@@ -71,9 +71,9 @@ function Footer() {
 					</div>
 
 					<div className="footer-section footer-legal">
-						<a href="/siret">Siret: 125646454645</a>
-						<a href="/cgv">Conditions générales de vente</a>
-						<a href="/mentions-legales">Mentions Légales</a>
+						<Link to="/legal/siret">SIRET</Link>
+						<Link to="/legal/cgv">Conditions générales de vente</Link>
+						<Link to="/legal/mentions">Mentions Légales</Link>
 					</div>
 				</div>
 			</div>

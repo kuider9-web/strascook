@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import logo from "../asset/image/logo1.png";
 import "./Login.css";
 
 function Login() {
@@ -38,9 +39,15 @@ function Login() {
 	return (
 		<div className="login-page">
 			<div className="login-container">
+				<div className="login-brand">
+					<img src={logo} alt="Strascook" className="login-brand-mark" />
+					<span className="login-brand-name">Strascook</span>
+					<span className="login-brand-sep">—</span>
+					<span className="login-brand-sub">Chef Privé Gastronomique</span>
+				</div>
 				<div className="login-card">
 					<div className="login-header">
-						<h1>Strascook</h1>
+						<h1>Connexion</h1>
 						<p className="login-subtitle">Espace Administrateur & Chef</p>
 					</div>
 

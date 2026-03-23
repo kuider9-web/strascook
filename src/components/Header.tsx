@@ -14,7 +14,7 @@ function Header() {
 			behavior: "smooth",
 		});
 	};
-	const { totalArticles, panier, supprimerDuPanier, total } = usePanier();
+	const { totalArticles, panier, ajoutPanier, supprimerDuPanier, total } = usePanier();
 	const [afficherPanier, setAfficherPanier] = useState(false);
 	const [menuOuvert, setMenuOuvert] = useState(false);
 	const { user, isAuthenticated, logout } = useAuth();
@@ -64,7 +64,7 @@ function Header() {
 							className="admin-link"
 							onClick={() => setMenuOuvert(false)}
 						>
-							Back-Office
+							Tableau de Bord
 						</Link>
 					) : (
 						<Link to="/login" onClick={() => setMenuOuvert(false)}>
@@ -144,18 +144,13 @@ function Header() {
 										<img src={item.image_URL} alt={item.nom} />
 										<div className="panier-item-info">
 											<p className="panier-item-nom">{item.nom}</p>
-											<p className="panier-item-prix">
-												x{item.quantiter} — {item.prix}
-											</p>
+											<p className="panier-item-prix">{(parseFloat(item.prix) * item.quantiter).toFixed(2)}€</p>
 										</div>
-										<button
-											type="button"
-											className="panier-item-delete"
-											onClick={() => supprimerDuPanier(item.nom)}
-											aria-label={`Supprimer ${item.nom}`}
-										>
-											✕
-										</button>
+										<div className="panier-item-qty">
+											<button type="button" className="qty-btn" onClick={() => supprimerDuPanier(item.nom)} aria-label="Diminuer">−</button>
+											<span className="qty-value">{item.quantiter}</span>
+											<button type="button" className="qty-btn" onClick={() => ajoutPanier({ nom: item.nom, prix: item.prix, image_URL: item.image_URL })} aria-label="Augmenter">+</button>
+										</div>
 									</li>
 								))}
 							</ul>

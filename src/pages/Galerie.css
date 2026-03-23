@@ -134,7 +134,7 @@
 }
 
 .galerie-header h1 {
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	font-size: 3rem;
 	font-weight: 300;
 	letter-spacing: 3px;
@@ -174,7 +174,7 @@
 }
 
 .galerie-subtitle {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	font-size: 1.1rem;
 	font-weight: 300;
 	letter-spacing: 0.5px;
@@ -229,7 +229,7 @@
 }
 
 .filter-group h3 {
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	font-size: 1.1rem;
 	color: var(--black);
 	margin-bottom: 1.2rem;
@@ -264,7 +264,7 @@
 	border: 2px solid var(--border-color);
 	background-color: white;
 	color: var(--dark-gray);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	font-size: 0.95rem;
 	font-weight: 500;
 	letter-spacing: 0.3px;
@@ -307,8 +307,16 @@
 	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
 	color: white;
 	border-color: var(--accent-color);
-	box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
-	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(201, 169, 97, 0.45);
+	transform: translateY(-3px);
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+
+.filter-button.active::after {
+	content: " ✓";
+	font-size: 0.85em;
+	opacity: 0.9;
 }
 
 .filter-button:focus-visible {
@@ -326,7 +334,7 @@
 }
 
 .results-count p {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	color: var(--medium-gray);
 	font-size: 1rem;
 	font-style: italic;
@@ -364,7 +372,7 @@
 }
 
 .card-price {
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	color: var(--accent-color);
 	font-size: 1.1rem;
 	font-weight: 700;
@@ -469,7 +477,7 @@
 }
 
 .galerie-overlay h3 {
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	color: white;
 	font-size: 1.2rem;
 	font-weight: 400;
@@ -484,7 +492,7 @@
 }
 
 .badge-mini {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	font-size: 0.75rem;
 	padding: 0.3rem 0.7rem;
 	background-color: rgba(201, 169, 97, 0.9);
@@ -505,7 +513,7 @@
 }
 
 .galerie-empty p {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	color: var(--medium-gray);
 	font-size: 1.2rem;
 	margin-bottom: 1.5rem;
@@ -518,7 +526,7 @@
 	border: none;
 	border-radius: 25px;
 	cursor: pointer;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	font-size: 1rem;
 	font-weight: 600;
 	letter-spacing: 0.3px;
@@ -694,7 +702,7 @@
 }
 
 .modal-header h2 {
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	margin: 0;
 	color: var(--black);
 	font-size: 1.8rem;
@@ -722,7 +730,7 @@
 	color: white;
 	padding: 0.6rem 1.3rem;
 	border-radius: 25px;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	font-size: 0.85rem;
 	text-transform: uppercase;
 	letter-spacing: 1px;
@@ -732,7 +740,7 @@
 }
 
 .dish-description {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	color: var(--dark-gray);
 	line-height: 1.8;
 	margin-bottom: 2rem;
@@ -753,7 +761,7 @@
 .badge {
 	padding: 0.6rem 1.2rem;
 	border-radius: 25px;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	font-size: 0.9rem;
 	color: white;
 	font-weight: 600;
@@ -778,7 +786,7 @@
 }
 
 .dish-ingredients h3 {
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	color: var(--black);
 	font-size: 1.3rem;
 	margin-bottom: 1rem;
@@ -808,7 +816,7 @@
 }
 
 .dish-ingredients li {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	padding: 0.7rem 1rem;
 	background-color: #f8f9fa;
 	border-radius: 6px;
@@ -848,7 +856,7 @@
 }
 
 .price-label {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	color: var(--medium-gray);
 	font-size: 1rem;
 	font-weight: 600;
@@ -857,7 +865,7 @@
 }
 
 .price-value {
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	color: var(--accent-color);
 	font-size: 1.8rem;
 	font-weight: 700;
@@ -877,7 +885,7 @@
 	text-align: center;
 	text-decoration: none;
 	border-radius: 8px;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	font-size: 1.1rem;
 	font-weight: 600;
 	letter-spacing: 0.5px;

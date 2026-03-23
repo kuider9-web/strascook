@@ -184,32 +184,34 @@ function Reservation() {
 						/>
 					</label>
 				</div>
-				<label>
-					Email *
-					<input
-						type="email"
-						value={formData.email}
-						onChange={(e) =>
-							setFormData({ ...formData, email: e.target.value })
-						}
-						required
-					/>
-				</label>
-				<label>
-					Téléphone *
-					<input
-						type="tel"
-						inputMode="numeric"
-						value={formData.telephone}
-						onChange={(e) =>
-							setFormData({
-								...formData,
-								telephone: e.target.value.replace(/\D/g, ""),
-							})
-						}
-						required
-					/>
-				</label>
+				<div className="ligne">
+					<label>
+						Email *
+						<input
+							type="email"
+							value={formData.email}
+							onChange={(e) =>
+								setFormData({ ...formData, email: e.target.value })
+							}
+							required
+						/>
+					</label>
+					<label>
+						Téléphone *
+						<input
+							type="tel"
+							inputMode="numeric"
+							value={formData.telephone}
+							onChange={(e) =>
+								setFormData({
+									...formData,
+									telephone: e.target.value.replace(/\D/g, ""),
+								})
+							}
+							required
+						/>
+					</label>
+				</div>
 				<label>
 					Particulier ou professionnel
 					<select
@@ -251,54 +253,39 @@ function Reservation() {
 						<option value="non">Non</option>
 					</select>
 				</label>
-				<label>
-					Date de l'événement *
-					<input
-						type="date"
-						value={formData.dateEvenement}
-						onChange={(e) =>
-							setFormData({ ...formData, dateEvenement: e.target.value })
-						}
-						min={new Date().toISOString().split("T")[0]}
-						required
-					/>
-					{unavailableDates.includes(formData.dateEvenement) && (
-						<span
-							style={{
-								color: "red",
-								fontSize: "0.9rem",
-								marginTop: "0.5rem",
-								display: "block",
-							}}
-						>
-							⚠️ Cette journée est entièrement bloquée
-						</span>
-					)}
-				</label>
-				<label>
-					Heure de l'événement *
-					<input
-						type="time"
-						value={formData.heureEvenement}
-						onChange={(e) =>
-							setFormData({ ...formData, heureEvenement: e.target.value })
-						}
-						required
-					/>
-					{formData.heureEvenement && formData.dateEvenement && (
-						<span
-							style={{
-								color: slotStatus.available ? "#27ae60" : "#c0392b",
-								fontSize: "0.9rem",
-								marginTop: "0.5rem",
-								display: "block",
-								fontWeight: "600",
-							}}
-						>
-							{slotStatus.message}
-						</span>
-					)}
-				</label>
+				<div className="ligne">
+					<label>
+						Date de l'événement *
+						<input
+							type="date"
+							value={formData.dateEvenement}
+							onChange={(e) =>
+								setFormData({ ...formData, dateEvenement: e.target.value })
+							}
+							min={new Date().toISOString().split("T")[0]}
+							required
+						/>
+						{unavailableDates.includes(formData.dateEvenement) && (
+							<span className="slot-warning">⚠️ Cette journée est entièrement bloquée</span>
+						)}
+					</label>
+					<label>
+						Heure de l'événement *
+						<input
+							type="time"
+							value={formData.heureEvenement}
+							onChange={(e) =>
+								setFormData({ ...formData, heureEvenement: e.target.value })
+							}
+							required
+						/>
+						{formData.heureEvenement && formData.dateEvenement && (
+							<span className={slotStatus.available ? "slot-ok" : "slot-warning"}>
+								{slotStatus.message}
+							</span>
+						)}
+					</label>
+				</div>
 				<label>
 					Nombre de convives *
 					<input

@@ -4,7 +4,7 @@
 
 .calendar-availability h2 {
 	font-size: 2.5rem;
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	font-weight: 300;
 	letter-spacing: 2px;
 	margin-bottom: 30px;
@@ -30,13 +30,13 @@
 	margin-bottom: 30px;
 	padding: 20px;
 	background: #fafafa;
-	border-radius: 2px;
+	border-radius: 8px;
 	border: 1px solid #ddd;
 }
 
 .calendar-header h3 {
 	font-size: 1.8rem;
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	font-weight: 300;
 	letter-spacing: 1px;
 	color: #000;
@@ -48,10 +48,10 @@
 	background: #c9a961;
 	color: white;
 	border: none;
-	border-radius: 2px;
+	border-radius: 8px;
 	font-size: 1rem;
 	font-weight: 500;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	cursor: pointer;
 	transition: all 0.3s;
 	letter-spacing: 0.3px;
@@ -68,7 +68,7 @@
 	margin-bottom: 20px;
 	padding: 15px;
 	background: #fafafa;
-	border-radius: 2px;
+	border-radius: 8px;
 	justify-content: center;
 	border: 1px solid #ddd;
 }
@@ -79,7 +79,7 @@
 	gap: 8px;
 	font-size: 1rem;
 	font-weight: 500;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	color: #333;
 }
 
@@ -100,9 +100,9 @@
 	padding: 15px;
 	background: linear-gradient(135deg, #c9a961, #b89650);
 	color: white;
-	border-radius: 2px;
+	border-radius: 8px;
 	font-size: 1rem;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	letter-spacing: 0.5px;
 }
 
@@ -113,7 +113,7 @@
 	justify-content: center;
 	align-items: center;
 	border: 2px solid #ddd;
-	border-radius: 2px;
+	border-radius: 8px;
 	cursor: pointer;
 	transition: all 0.3s;
 	padding: 10px;
@@ -157,7 +157,7 @@
 .day-number {
 	font-size: 1.2rem;
 	font-weight: 600;
-	font-family: "Georgia", serif;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
 	color: #000;
 }
 
@@ -170,11 +170,11 @@
 	text-align: center;
 	color: #666;
 	font-size: 1rem;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
 	margin-top: 20px;
 	padding: 15px;
 	background: #fff3cd;
-	border-radius: 2px;
+	border-radius: 8px;
 	border: 2px solid #c9a961;
 }
 

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 interface ProtectedRouteProps {
@@ -32,16 +32,13 @@ export function ProtectedRoute({
 	if (requiredRole && user?.role !== requiredRole) {
 		return (
 			<div className="unauthorized">
-				<h2>⛔ Accès refusé</h2>
-				<p>
-					Vous n'avez pas les permissions nécessaires pour accéder à cette page.
+				<div className="unauthorized-icon">⛔</div>
+				<h2>Accès refusé</h2>
+				<p>Vous n'avez pas les permissions nécessaires pour accéder à cette page.</p>
+				<p className="unauthorized-roles">
+					Rôle requis : <strong>{requiredRole}</strong> — Votre rôle : <strong>{user?.role}</strong>
 				</p>
-				<p>
-					Rôle requis : <strong>{requiredRole}</strong>
-				</p>
-				<p>
-					Votre rôle : <strong>{user?.role}</strong>
-				</p>
+				<Link to="/" className="unauthorized-home-btn">← Retour à l'accueil</Link>
 			</div>
 		);
 	}

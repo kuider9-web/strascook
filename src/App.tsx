@@ -8,8 +8,10 @@ import { PanierProvider } from "./context/PanierContext";
 import BackOffice from "./pages/BackOffice/BackOffice";
 import Galerie from "./pages/Galerie";
 import Home from "./pages/Home";
+import Legal from "./pages/Legal";
 import Login from "./pages/Login";
 import Menu from "./pages/Menu";
+import NotFound from "./pages/NotFound";
 import Reservation from "./pages/Reservation";
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
 						<Route path="/galerie" element={<Galerie />} />
 						<Route path="/reservation" element={<Reservation />} />
 						<Route path="/login" element={<Login />} />
+					<Route path="/legal/:page" element={<Legal />} />
+					<Route path="*" element={<NotFound />} />
 						<Route
 							path="/admin"
 							element={
