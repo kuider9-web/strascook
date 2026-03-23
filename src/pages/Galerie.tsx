@@ -65,7 +65,11 @@ const Galerie = () => {
 			// Extraire tous les plats de l'API
 			const apiDishes: Dish[] = [];
 			for (const menu of data) {
-				apiDishes.push(...(menu.entrees || []), ...menu.plats, ...(menu.desserts || []));
+				apiDishes.push(
+					...(menu.entrees || []).map((d) => ({ ...d, categorie: "entree" as const })),
+					...menu.plats.map((d) => ({ ...d, categorie: "plat" as const })),
+					...(menu.desserts || []).map((d) => ({ ...d, categorie: "dessert" as const })),
+				);
 			}
 
 			// 2. Récupère les plats personnalisés du chef
