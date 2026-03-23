@@ -10,7 +10,7 @@ function Home() {
 	const [menus, setMenus] = useState<MenuType[]>([]);
 
 	useEffect(() => {
-		fetch("https://api-strascook.vercel.app/items")
+		fetch("/data.json")
 			.then((res) => res.json())
 			.then((data: MenuType[]) => setMenus(data))
 			.catch((err) => console.error(err));

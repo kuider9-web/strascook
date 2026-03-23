@@ -1,0 +1,207 @@
+[
+  {
+    "id": 101,
+    "menu_type": "Menu À La Carte",
+    "prix_menu": "À partir de 65€ / personne",
+    "entrees": [
+      {
+        "nom": "Foie Gras Poêlé",
+        "description": "Foie gras de canard poêlé, chutney de figues et brioche toastée",
+        "ingredients": ["Foie gras de canard", "Figues", "Brioche", "Vinaigre balsamique", "Fleur de sel"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": false,
+        "sans_lactose": true,
+        "image_URL": "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=80"
+      },
+      {
+        "nom": "Velouté de Butternut",
+        "description": "Velouté onctueux de courge butternut, crème fraîche et noisettes torréfiées",
+        "ingredients": ["Courge butternut", "Crème fraîche", "Noisettes", "Muscade", "Ciboulette"],
+        "vegetalien": false,
+        "vegetarien": true,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80"
+      },
+      {
+        "nom": "Tartare de Saumon",
+        "description": "Saumon Label Rouge, avocat, citron vert et herbes fraîches",
+        "ingredients": ["Saumon Label Rouge", "Avocat", "Citron vert", "Aneth", "Échalotes"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": true,
+        "image_URL": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80"
+      }
+    ],
+    "plats": [
+      {
+        "nom": "Filet de Bœuf Rossini",
+        "description": "Filet de bœuf rossini, sauce périgueux et gratin dauphinois",
+        "ingredients": ["Filet de bœuf", "Foie gras", "Truffe noire", "Pommes de terre", "Crème"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1558030006-450675393462?w=600&q=80"
+      },
+      {
+        "nom": "Magret de Canard",
+        "description": "Magret de canard rôti, jus aux cerises et purée de céleri",
+        "ingredients": ["Magret de canard", "Cerises", "Céleri-rave", "Beurre", "Thym"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80"
+      },
+      {
+        "nom": "Bar en Croûte d'Herbes",
+        "description": "Filet de bar en croûte d'herbes, beurre blanc et légumes de saison",
+        "ingredients": ["Filet de bar", "Persil", "Basilic", "Citron", "Beurre blanc"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": false,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80"
+      }
+    ],
+    "desserts": [
+      {
+        "nom": "Crème Brûlée à la Vanille",
+        "description": "Crème brûlée à la vanille de Madagascar, caramel croustillant",
+        "ingredients": ["Crème entière", "Jaunes d'œufs", "Vanille Madagascar", "Sucre cassonade"],
+        "vegetalien": false,
+        "vegetarien": true,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1470324161839-ce2bb6fa6bc3?w=600&q=80"
+      },
+      {
+        "nom": "Tarte Tatin Revisitée",
+        "description": "Tarte tatin aux pommes caramélisées, crème fraîche et calvados",
+        "ingredients": ["Pommes Golden", "Beurre", "Sucre", "Pâte feuilletée", "Calvados"],
+        "vegetalien": false,
+        "vegetarien": true,
+        "sans_gluten": false,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80"
+      },
+      {
+        "nom": "Moelleux au Chocolat",
+        "description": "Moelleux au chocolat Valrhona, cœur coulant et glace vanille",
+        "ingredients": ["Chocolat Valrhona 70%", "Beurre", "Œufs", "Farine", "Glace vanille"],
+        "vegetalien": false,
+        "vegetarien": true,
+        "sans_gluten": false,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "menu_type": "Menu Dégustation 4 Temps",
+    "prix_menu": "85€ / personne",
+    "plats": [
+      {
+        "nom": "Amuse-bouche du Chef",
+        "description": "Mise en bouche créative selon l'inspiration du jour",
+        "ingredients": ["Produits de saison", "Herbes fraîches", "Épices sélectionnées"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": false,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
+      },
+      {
+        "nom": "Saint-Jacques Poêlées",
+        "description": "Saint-Jacques de la baie de Saint-Brieuc, risotto au citron",
+        "ingredients": ["Saint-Jacques", "Riz Arborio", "Citron", "Parmesan", "Beurre"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80"
+      },
+      {
+        "nom": "Agneau de Lait Rôti",
+        "description": "Carré d'agneau de lait rôti aux herbes de Provence, jus corsé",
+        "ingredients": ["Carré d'agneau", "Romarin", "Thym", "Ail", "Huile d'olive"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": true,
+        "image_URL": "https://images.unsplash.com/photo-1432139509613-5c4255815697?w=600&q=80"
+      },
+      {
+        "nom": "Mille-feuille Vanille",
+        "description": "Mille-feuille à la crème pâtissière vanillée et framboises fraîches",
+        "ingredients": ["Pâte feuilletée", "Crème pâtissière", "Vanille", "Framboises", "Sucre glace"],
+        "vegetalien": false,
+        "vegetarien": true,
+        "sans_gluten": false,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80"
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "menu_type": "Menu Dégustation 5 Temps",
+    "prix_menu": "110€ / personne",
+    "plats": [
+      {
+        "nom": "Velouté de Homard",
+        "description": "Velouté de homard breton, huile de corail et cerfeuil",
+        "ingredients": ["Homard breton", "Crème", "Cognac", "Cerfeuil", "Beurre"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80"
+      },
+      {
+        "nom": "Œuf Parfait Truffe",
+        "description": "Œuf parfait à 63°, émulsion de truffe noire et mouillettes croustillantes",
+        "ingredients": ["Œuf fermier", "Truffe noire", "Crème", "Pain de campagne", "Beurre"],
+        "vegetalien": false,
+        "vegetarien": true,
+        "sans_gluten": false,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&q=80"
+      },
+      {
+        "nom": "Turbot Sauvage",
+        "description": "Turbot sauvage rôti, beurre nantais et asperges vertes",
+        "ingredients": ["Turbot sauvage", "Asperges vertes", "Beurre blanc", "Citron", "Estragon"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1510130387422-82bed34b37e9?w=600&q=80"
+      },
+      {
+        "nom": "Pigeon de Vendée",
+        "description": "Pigeon de Vendée rôti, jus au porto et polenta crémeuse",
+        "ingredients": ["Pigeon de Vendée", "Porto", "Polenta", "Parmesan", "Thym"],
+        "vegetalien": false,
+        "vegetarien": false,
+        "sans_gluten": true,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80"
+      },
+      {
+        "nom": "Soufflé au Grand Marnier",
+        "description": "Soufflé chaud au Grand Marnier, glace mandarine",
+        "ingredients": ["Grand Marnier", "Blancs d'œufs", "Crème pâtissière", "Sucre", "Glace mandarine"],
+        "vegetalien": false,
+        "vegetarien": true,
+        "sans_gluten": false,
+        "sans_lactose": false,
+        "image_URL": "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
+      }
+    ]
+  }
+]
