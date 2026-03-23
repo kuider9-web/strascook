@@ -1,0 +1,278 @@
+.login-page {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #faf8f5;
+	padding: 40px 20px;
+}
+
+/* BRANDING AU-DESSUS DE LA CARTE */
+.login-container {
+	width: 100%;
+	max-width: 460px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 28px;
+}
+
+.login-brand {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.login-brand-mark {
+	width: 120px;
+	height: 120px;
+	object-fit: contain;
+	flex-shrink: 0;
+}
+
+.login-brand-name {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 1.8rem;
+	font-weight: 400;
+	color: #1a1208;
+	letter-spacing: 3px;
+}
+
+.login-brand-sep {
+	color: #c9a961;
+	font-size: 1.1rem;
+}
+
+.login-brand-sub {
+	font-size: 0.85rem;
+	color: #888;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+}
+
+/* CARTE */
+.login-card {
+	background: #ffffff;
+	border-radius: 12px;
+	padding: 40px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+	border: 1px solid #ede8df;
+	width: 100%;
+	animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.login-header {
+	text-align: center;
+	margin-bottom: 32px;
+}
+
+.login-header h1 {
+	margin: 0 0 6px 0;
+	font-size: 1.6rem;
+	font-weight: 400;
+	color: #1a1208;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	letter-spacing: 1px;
+}
+
+.login-subtitle {
+	margin: 0;
+	color: #999;
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.form-group label {
+	font-weight: 500;
+	color: #444;
+	font-size: 13px;
+	letter-spacing: 0.3px;
+}
+
+.form-group input {
+	padding: 12px 14px;
+	border: 1.5px solid #e0d8cc;
+	border-radius: 8px;
+	font-size: 15px;
+	transition: all 0.25s ease;
+	font-family: inherit;
+	background: #fdfbf8;
+	color: #1a1208;
+}
+
+.form-group input::placeholder {
+	color: #bbb;
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: #c9a961;
+	background: #fff;
+	box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.12);
+}
+
+.form-group input:disabled {
+	background-color: #f5f2ed;
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.error-message {
+	background: #fff5f5;
+	color: #c33;
+	padding: 12px;
+	border-radius: 8px;
+	font-size: 13px;
+	text-align: center;
+	border: 1px solid #fdd;
+	font-weight: 500;
+}
+
+.login-button {
+	padding: 14px;
+	background: linear-gradient(135deg, var(--accent-color, #c9a961), var(--accent-hover, #b89650));
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.25s ease;
+	margin-top: 4px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	box-shadow: 0 4px 14px rgba(201, 169, 97, 0.28);
+}
+
+.login-button:hover:not(:disabled) {
+	background: linear-gradient(135deg, var(--accent-hover, #b89650), #a07840);
+	transform: translateY(-1px);
+	box-shadow: 0 6px 18px rgba(201, 169, 97, 0.38);
+}
+
+.login-button:active:not(:disabled) {
+	transform: translateY(0);
+}
+
+.login-button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* COMPTES DEMO */
+.demo-credentials {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 28px;
+	padding-top: 24px;
+	border-top: 1px solid #ede8df;
+}
+
+.demo-title {
+	margin: 0 0 14px 0;
+	font-size: 12px;
+	color: #aaa;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.demo-account {
+	text-align: center;
+	width: 100%;
+	background: #faf8f5;
+	padding: 14px;
+	border-radius: 8px;
+	border: 1px solid #ede8df;
+	transition: all 0.25s ease;
+}
+
+.demo-account:hover {
+	border-color: #c9a961;
+	background: #fdf9f1;
+}
+
+.demo-role {
+	font-weight: 600;
+	color: #c9a961;
+	margin: 0 0 8px 0;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.demo-account p {
+	margin: 3px 0;
+	font-size: 12px;
+	color: #888;
+	font-family: "Courier New", monospace;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+	.login-page {
+		padding: 24px 16px;
+	}
+
+	.login-card {
+		padding: 28px 20px;
+	}
+
+	.login-brand-name {
+		font-size: 1.4rem;
+	}
+
+	.login-brand-sep,
+	.login-brand-sub {
+		display: none;
+	}
+}
+
+@media (max-width: 375px) {
+	.login-card {
+		padding: 22px 16px;
+	}
+
+	.login-header h1 {
+		font-size: 1.3rem;
+	}
+
+	.form-group input {
+		padding: 10px 12px;
+		font-size: 14px;
+	}
+
+	.login-button {
+		padding: 12px;
+		font-size: 14px;
+	}
+}

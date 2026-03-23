@@ -1,59 +1,47 @@
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import { Route, Link as RouterLink, Routes } from "react-router-dom";
-import About from "./pages/About";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
+import { PanierProvider } from "./context/PanierContext";
+import BackOffice from "./pages/BackOffice/BackOffice";
+import Galerie from "./pages/Galerie";
 import Home from "./pages/Home";
+import Legal from "./pages/Legal";
+import Login from "./pages/Login";
+import Menu from "./pages/Menu";
+import NotFound from "./pages/NotFound";
+import Reservation from "./pages/Reservation";
 
-function Copyright() {
+function App() {
 	return (
-		<Typography
-			variant="body2"
-			align="center"
-			sx={{
-				color: "text.secondary",
-			}}
-		>
-			{"Copyright © "}
-			<Link color="inherit" href="https://mui.com/">
-				Your Website
-			</Link>{" "}
-			{new Date().getFullYear()}.
-		</Typography>
+		<AuthProvider>
+			<PanierProvider>
+				<BrowserRouter>
+					<Header />
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/menu" element={<Menu />} />
+						<Route path="/galerie" element={<Galerie />} />
+						<Route path="/reservation" element={<Reservation />} />
+						<Route path="/login" element={<Login />} />
+					<Route path="/legal/:page" element={<Legal />} />
+					<Route path="*" element={<NotFound />} />
+						<Route
+							path="/admin"
+							element={
+								<ProtectedRoute>
+									<BackOffice />
+								</ProtectedRoute>
+							}
+						/>
+					</Routes>
+					<Footer />
+				</BrowserRouter>
+			</PanierProvider>
+		</AuthProvider>
 	);
 }
 
-export default function App() {
-	return (
-		<Container maxWidth="sm">
-			{/* Barre de navigation simple */}
-			<Box component="nav" sx={{ p: 2, borderBottom: "1px solid #ddd" }}>
-				<Stack direction="row" spacing={4} justifyContent="center">
-					<Link component={RouterLink} to="/" variant="h6" underline="hover">
-						Accueil
-					</Link>
-					<Link
-						component={RouterLink}
-						to="/about"
-						variant="h6"
-						underline="hover"
-					>
-						À propos
-					</Link>
-				</Stack>
-			</Box>
-
-			{/* Configuration des Routes */}
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/about" element={<About />} />
-			</Routes>
-
-			<Box sx={{ my: 4 }}>
-				<Copyright />
-			</Box>
-		</Container>
-	);
-}
+export default App;

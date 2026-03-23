@@ -1,0 +1,1158 @@
+/* ========================================
+   VARIABLES CSS (COULEURS ACCENT)
+   ======================================== */
+:root {
+	--accent-color: #c9a961;
+	--accent-hover: #b89650;
+	--accent-light: #e5d4a6;
+	--black: #000000;
+	--dark-gray: #333333;
+	--medium-gray: #666666;
+	--light-gray: #f5f5f5;
+	--border-color: #ddd;
+	--shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
+	--shadow-md: 0 8px 20px rgba(0, 0, 0, 0.18);
+	--shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.2);
+
+	/* Couleurs badges harmonisées */
+	--badge-vegetalien: #6b8e6b;
+	--badge-vegetarien: #8fbc8f;
+	--badge-sans-gluten: #c9a961;
+	--badge-sans-lactose: #7d97ad;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes slideUp {
+	from {
+		transform: translateY(50px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	50% {
+		opacity: 0.8;
+		transform: scale(1.05);
+	}
+}
+
+@keyframes drawLine {
+	from {
+		width: 0;
+	}
+
+	to {
+		width: 100%;
+	}
+}
+
+/* ========================================
+   CONTENEUR PRINCIPAL
+   ======================================== */
+.galerie-container {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+/* ========================================
+   EN-TÊTE GALERIE
+   ======================================== */
+.galerie-header {
+	text-align: center;
+	margin-bottom: 4rem;
+	animation: fadeInUp 0.8s ease-out;
+}
+
+.galerie-header h1 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 3rem;
+	font-weight: 300;
+	letter-spacing: 3px;
+	color: var(--black);
+	margin: 0 0 2rem 0;
+	position: relative;
+	display: inline-block;
+	animation: slideInLeft 1s ease-out;
+}
+
+/* Triple ligne décorative */
+.galerie-header h1::before,
+.galerie-header h1::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 2px;
+	background: linear-gradient(
+		to right,
+		transparent,
+		var(--accent-color),
+		transparent
+	);
+}
+
+.galerie-header h1::before {
+	top: -20px;
+	width: 60px;
+	animation: drawLine 0.8s ease-out 0.5s backwards;
+}
+
+.galerie-header h1::after {
+	bottom: -15px;
+	width: 100px;
+	animation: drawLine 0.8s ease-out 0.7s backwards;
+}
+
+.galerie-subtitle {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 1.1rem;
+	font-weight: 300;
+	letter-spacing: 0.5px;
+	line-height: 1.8;
+	color: var(--dark-gray);
+	max-width: 700px;
+	margin: 0 auto;
+	animation: fadeIn 1s ease-out 0.6s backwards;
+}
+
+/* ========================================
+   LOADING & ERROR
+   ======================================== */
+.galerie-loading,
+.galerie-error {
+	text-align: center;
+	padding: 4rem 2rem;
+	font-size: 1.2rem;
+	color: var(--dark-gray);
+	animation: pulse 1.5s ease-in-out infinite;
+}
+
+.galerie-error button {
+	margin-top: 1.5rem;
+	padding: 0.9rem 2rem;
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+	color: white;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 600;
+	transition: all 0.4s ease;
+	box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+}
+
+.galerie-error button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+}
+
+/* ========================================
+   FILTRES
+   ======================================== */
+.galerie-filters {
+	margin-bottom: 3rem;
+	animation: fadeInUp 0.8s ease-out 0.3s backwards;
+}
+
+.filter-group {
+	margin-bottom: 2.5rem;
+}
+
+.filter-group h3 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 1.1rem;
+	color: var(--black);
+	margin-bottom: 1.2rem;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	text-align: center;
+	position: relative;
+}
+
+/* Petit accent sous le titre */
+.filter-group h3::after {
+	content: "";
+	position: absolute;
+	bottom: -8px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 40px;
+	height: 2px;
+	background: var(--accent-color);
+}
+
+.filter-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.filter-button {
+	padding: 0.8rem 1.8rem;
+	border: 2px solid var(--border-color);
+	background-color: white;
+	color: var(--dark-gray);
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.95rem;
+	font-weight: 500;
+	letter-spacing: 0.3px;
+	cursor: pointer;
+	transition: all 0.4s ease;
+	border-radius: 30px;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Effet de brillance */
+.filter-button::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(201, 169, 97, 0.1),
+		transparent
+	);
+	transition: left 0.6s ease;
+}
+
+.filter-button:hover::before {
+	left: 100%;
+}
+
+.filter-button:hover {
+	border-color: var(--accent-color);
+	color: var(--accent-hover);
+	transform: translateY(-3px);
+	box-shadow: 0 4px 12px rgba(201, 169, 97, 0.2);
+}
+
+.filter-button.active {
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+	color: white;
+	border-color: var(--accent-color);
+	box-shadow: 0 6px 20px rgba(201, 169, 97, 0.45);
+	transform: translateY(-3px);
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+
+.filter-button.active::after {
+	content: " ✓";
+	font-size: 0.85em;
+	opacity: 0.9;
+}
+
+.filter-button:focus-visible {
+	outline: 2px solid var(--accent-color);
+	outline-offset: 3px;
+}
+
+/* ========================================
+   COMPTEUR RÉSULTATS
+   ======================================== */
+.results-count {
+	text-align: center;
+	margin-bottom: 2.5rem;
+	animation: fadeIn 0.6s ease-out;
+}
+
+.results-count p {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	color: var(--medium-gray);
+	font-size: 1rem;
+	font-style: italic;
+	letter-spacing: 0.3px;
+}
+
+/* ========================================
+   GRILLE D'IMAGES
+   ======================================== */
+.galerie-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 2rem;
+	margin-bottom: 4rem;
+}
+
+/* ========================================
+   ITEM GALERIE
+   ======================================== */
+.galerie-item {
+	position: relative;
+	overflow: hidden;
+	border-radius: 4px;
+	cursor: pointer;
+	aspect-ratio: 4 / 3;
+	box-shadow: var(--shadow-sm);
+	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	border: none;
+	padding: 0;
+	background: none;
+	width: 100%;
+	display: block;
+	text-align: left;
+	animation: scaleIn 0.6s ease-out backwards;
+}
+
+.card-price {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	color: var(--accent-color);
+	font-size: 1.1rem;
+	font-weight: 700;
+	margin-bottom: 0.5rem;
+	display: block;
+}
+
+/* Animation échelonnée */
+.galerie-item:nth-child(1) {
+	animation-delay: 0.5s;
+}
+
+.galerie-item:nth-child(2) {
+	animation-delay: 0.55s;
+}
+
+.galerie-item:nth-child(3) {
+	animation-delay: 0.6s;
+}
+
+.galerie-item:nth-child(4) {
+	animation-delay: 0.65s;
+}
+
+.galerie-item:nth-child(5) {
+	animation-delay: 0.7s;
+}
+
+.galerie-item:nth-child(6) {
+	animation-delay: 0.75s;
+}
+
+/* Bordure accent au hover */
+.galerie-item::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(
+		90deg,
+		var(--accent-color),
+		var(--accent-light),
+		var(--accent-color)
+	);
+	background-size: 200% 100%;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+	z-index: 2;
+}
+
+.galerie-item:hover::before {
+	opacity: 1;
+	animation: shimmer 2s linear infinite;
+}
+
+.galerie-item:hover {
+	transform: translateY(-10px);
+	box-shadow: var(--shadow-lg);
+}
+
+.galerie-item:focus {
+	outline: 3px solid var(--accent-color);
+	outline-offset: 3px;
+}
+
+.galerie-item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition:
+		transform 0.6s ease,
+		filter 0.6s ease;
+	filter: brightness(0.95) contrast(1.05);
+}
+
+.galerie-item:hover img {
+	transform: scale(1.1);
+	filter: brightness(1) contrast(1.1);
+}
+
+/* ========================================
+   OVERLAY
+   ======================================== */
+.galerie-overlay {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+	padding: 1.5rem 1rem 1rem;
+	transform: translateY(100%);
+	transition: transform 0.4s ease;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.galerie-item:hover .galerie-overlay {
+	transform: translateY(0);
+}
+
+.galerie-overlay h3 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	color: white;
+	font-size: 1.2rem;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	margin: 0 0 0.75rem 0;
+}
+
+.dish-badges-preview {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.badge-mini {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.75rem;
+	padding: 0.3rem 0.7rem;
+	background-color: rgba(201, 169, 97, 0.9);
+	color: white;
+	border-radius: 15px;
+	backdrop-filter: blur(10px);
+	font-weight: 500;
+	letter-spacing: 0.3px;
+}
+
+/* ========================================
+   MESSAGE VIDE
+   ======================================== */
+.galerie-empty {
+	text-align: center;
+	padding: 4rem 2rem;
+	animation: fadeIn 0.6s ease-out;
+}
+
+.galerie-empty p {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	color: var(--medium-gray);
+	font-size: 1.2rem;
+	margin-bottom: 1.5rem;
+}
+
+.reset-filters-button {
+	padding: 0.9rem 2rem;
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+	color: white;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: 0.3px;
+	transition: all 0.4s ease;
+	box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+	position: relative;
+	overflow: hidden;
+}
+
+.reset-filters-button::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
+	transform: translate(-50%, -50%);
+	transition:
+		width 0.6s ease,
+		height 0.6s ease;
+}
+
+.reset-filters-button:hover::before {
+	width: 300px;
+	height: 300px;
+}
+
+.reset-filters-button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+.galerie-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	padding: 2rem;
+	animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.92);
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	z-index: 1;
+	backdrop-filter: blur(5px);
+}
+
+.modal-overlay:focus {
+	outline: none;
+}
+
+/* ========================================
+   CONTENU MODAL - OPTIMISÉ
+   ======================================== */
+.modal-content-detailed {
+	position: relative;
+	max-width: 1000px;
+	width: 100%;
+	max-height: 90vh;
+	background-color: white;
+	border-radius: 8px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+	animation: slideUp 0.4s ease;
+	z-index: 2;
+	display: block;
+}
+
+/* Bordure accent en haut */
+.modal-content-detailed::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: linear-gradient(
+		90deg,
+		var(--accent-color),
+		var(--accent-light),
+		var(--accent-color)
+	);
+	z-index: 10;
+}
+
+.modal-close {
+	position: fixed;
+	top: 2rem;
+	right: 2rem;
+	background-color: rgba(255, 255, 255, 0.95);
+	border: none;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	font-size: 2rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.4s ease;
+	z-index: 1001;
+	color: var(--dark-gray);
+	font-weight: 300;
+	line-height: 1;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close:hover {
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+	color: white;
+	transform: rotate(90deg) scale(1.1);
+	box-shadow: 0 6px 20px rgba(201, 169, 97, 0.5);
+}
+
+.modal-close:focus {
+	outline: 3px solid var(--accent-color);
+	outline-offset: 3px;
+}
+
+/* ========================================
+   IMAGE MODAL - FOND BLANC
+   ======================================== */
+.modal-image-section {
+	width: 100%;
+	height: 500px;
+	overflow: hidden;
+	background-color: #ffffff;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-image-section img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+}
+
+/* ========================================
+   DÉTAILS MODAL
+   ======================================== */
+.modal-details {
+	padding: 2.5rem;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 1.5rem;
+	gap: 1.5rem;
+}
+
+.modal-header h2 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	margin: 0;
+	color: var(--black);
+	font-size: 1.8rem;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	flex: 1;
+	position: relative;
+	padding-bottom: 1rem;
+	line-height: 1.3;
+}
+
+/* Soulignement doré */
+.modal-header h2::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 80px;
+	height: 2px;
+	background: var(--accent-color);
+}
+
+.dish-category {
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+	color: white;
+	padding: 0.6rem 1.3rem;
+	border-radius: 25px;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.85rem;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 600;
+	white-space: nowrap;
+	box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+}
+
+.dish-description {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	color: var(--dark-gray);
+	line-height: 1.8;
+	margin-bottom: 2rem;
+	font-size: 1.05rem;
+	letter-spacing: 0.3px;
+}
+
+/* ========================================
+   BADGES DIÉTÉTIQUES - HARMONISÉS
+   ======================================== */
+.dish-badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.7rem;
+	margin-bottom: 2rem;
+}
+
+.badge {
+	padding: 0.6rem 1.2rem;
+	border-radius: 25px;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.9rem;
+	color: white;
+	font-weight: 600;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	letter-spacing: 0.3px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease;
+}
+
+.badge:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================
+   INGRÉDIENTS
+   ======================================== */
+.dish-ingredients {
+	margin-bottom: 2rem;
+}
+
+.dish-ingredients h3 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	color: var(--black);
+	font-size: 1.3rem;
+	margin-bottom: 1rem;
+	font-weight: 400;
+	letter-spacing: 0.5px;
+	position: relative;
+	padding-bottom: 0.5rem;
+}
+
+.dish-ingredients h3::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 40px;
+	height: 2px;
+	background: var(--accent-color);
+}
+
+.dish-ingredients ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 0.8rem;
+}
+
+.dish-ingredients li {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	padding: 0.7rem 1rem;
+	background-color: #f8f9fa;
+	border-radius: 6px;
+	color: var(--dark-gray);
+	font-size: 0.95rem;
+	letter-spacing: 0.3px;
+	transition: all 0.3s ease;
+	border-left: 3px solid transparent;
+}
+
+.dish-ingredients li:hover {
+	background-color: #f0f0f0;
+	border-left-color: var(--accent-color);
+	transform: translateX(5px);
+}
+
+.dish-ingredients li::before {
+	content: "◆";
+	color: var(--accent-color);
+	font-weight: bold;
+	margin-right: 0.7rem;
+}
+
+/* ========================================
+   PRIX
+   ======================================== */
+.dish-price {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+	padding: 1.3rem 1.5rem;
+	background: linear-gradient(135deg, #f8f9fa, #ffffff);
+	border-radius: 8px;
+	border-left: 4px solid var(--accent-color);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.price-label {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	color: var(--medium-gray);
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+.price-value {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	color: var(--accent-color);
+	font-size: 1.8rem;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+
+/* ========================================
+   BOUTON RÉSERVATION
+   ======================================== */
+.reservation-button {
+	display: block;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 1.2rem 2.5rem;
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 8px;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 1.1rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	transition: all 0.4s ease;
+	border: none;
+	cursor: pointer;
+	box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+	position: relative;
+	overflow: hidden;
+}
+
+.reservation-button::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
+	transform: translate(-50%, -50%);
+	transition:
+		width 0.6s ease,
+		height 0.6s ease;
+}
+
+.reservation-button:hover::before {
+	width: 400px;
+	height: 400px;
+}
+
+.reservation-button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+}
+
+.reservation-button:focus {
+	outline: 3px solid var(--accent-light);
+	outline-offset: 3px;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+   ======================================== */
+@media (max-width: 768px) {
+	.galerie-modal {
+		padding: 1rem;
+	}
+
+	.modal-close {
+		top: 1rem;
+		right: 1rem;
+		width: 45px;
+		height: 45px;
+		font-size: 1.8rem;
+	}
+
+	.modal-image-section {
+		height: 350px;
+	}
+
+	.galerie-header h1 {
+		font-size: 2rem;
+		letter-spacing: 2px;
+	}
+
+	.galerie-header h1::before {
+		width: 50px;
+		top: -15px;
+	}
+
+	.galerie-header h1::after {
+		width: 70px;
+	}
+
+	.galerie-subtitle {
+		font-size: 1rem;
+	}
+
+	.galerie-grid {
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.filter-buttons {
+		gap: 0.7rem;
+	}
+
+	.filter-button {
+		padding: 0.7rem 1.4rem;
+		font-size: 0.9rem;
+	}
+
+	.modal-content-detailed {
+		max-width: 95vw;
+	}
+
+	.modal-details {
+		padding: 2rem 1.5rem;
+	}
+
+	.modal-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.modal-header h2 {
+		font-size: 1.6rem;
+	}
+
+	.dish-ingredients ul {
+		grid-template-columns: 1fr;
+	}
+
+	.card-price {
+		font-size: 0.95rem;
+	}
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+@media (max-width: 480px) {
+	.galerie-container {
+		padding: 1rem;
+	}
+
+	.galerie-modal {
+		padding: 0;
+	}
+
+	.modal-close {
+		top: 0.5rem;
+		right: 0.5rem;
+		width: 40px;
+		height: 40px;
+		font-size: 1.5rem;
+	}
+
+	.modal-image-section {
+		height: 300px;
+	}
+
+	.galerie-header {
+		margin-bottom: 3rem;
+	}
+
+	.galerie-header h1 {
+		font-size: 1.5rem;
+		letter-spacing: 1px;
+		margin-bottom: 1.5rem;
+	}
+
+	.galerie-header h1::before {
+		width: 40px;
+		top: -12px;
+	}
+
+	.galerie-header h1::after {
+		width: 50px;
+		bottom: -10px;
+	}
+
+	.galerie-subtitle {
+		font-size: 0.9rem;
+	}
+
+	.filter-group h3 {
+		font-size: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.filter-buttons {
+		gap: 0.5rem;
+	}
+
+	.filter-button {
+		padding: 0.6rem 1.2rem;
+		font-size: 0.85rem;
+	}
+
+	.galerie-grid {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.modal-content-detailed {
+		border-radius: 0;
+		max-height: 100vh;
+	}
+
+	.modal-details {
+		padding: 1.5rem 1rem;
+	}
+
+	.modal-header h2 {
+		font-size: 1.4rem;
+	}
+
+	.dish-category {
+		font-size: 0.75rem;
+		padding: 0.5rem 1rem;
+	}
+
+	.dish-description {
+		font-size: 0.95rem;
+	}
+
+	.dish-badges {
+		gap: 0.5rem;
+	}
+
+	.badge {
+		font-size: 0.8rem;
+		padding: 0.5rem 1rem;
+	}
+
+	.dish-ingredients h3 {
+		font-size: 1.1rem;
+	}
+
+	.dish-ingredients li {
+		font-size: 0.9rem;
+		padding: 0.6rem 0.8rem;
+	}
+
+	.card-price {
+		font-size: 0.85rem;
+	}
+
+	.price-value {
+		font-size: 1.5rem;
+	}
+
+	.reservation-button {
+		padding: 1rem;
+		font-size: 1rem;
+	}
+}
+
+/* ========================================
+   ANIMATIONS SPÉCIALES
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
+	}
+}
+
+/* ========================================
+   PRINT
+   ======================================== */
+@media print {
+	.galerie-filters,
+	.reservation-button,
+	.modal-close {
+		display: none;
+	}
+
+	.galerie-item,
+	.modal-content-detailed {
+		animation: none;
+		box-shadow: none;
+	}
+}

@@ -1,0 +1,82 @@
+.not-found {
+	min-height: 70vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #faf8f5;
+	padding: 3rem 2rem;
+	text-align: center;
+}
+
+.not-found-content {
+	max-width: 480px;
+}
+
+.not-found-code {
+	display: block;
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 7rem;
+	font-weight: 300;
+	color: #ede8df;
+	line-height: 1;
+	margin-bottom: 0.5rem;
+	letter-spacing: 4px;
+}
+
+.not-found h1 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 1.8rem;
+	font-weight: 400;
+	color: #1a1208;
+	margin: 0 0 1rem 0;
+	letter-spacing: 1px;
+}
+
+.not-found p {
+	color: #888;
+	font-size: 1rem;
+	line-height: 1.7;
+	margin: 0 0 2.5rem 0;
+}
+
+.not-found-actions {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.not-found-btn-primary {
+	padding: 0.85rem 2rem;
+	background: linear-gradient(135deg, #c9a961, #b89650);
+	color: white;
+	border-radius: 8px;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.95rem;
+	letter-spacing: 0.5px;
+	transition: all 0.25s ease;
+	box-shadow: 0 4px 12px rgba(201, 169, 97, 0.3);
+}
+
+.not-found-btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 18px rgba(201, 169, 97, 0.4);
+}
+
+.not-found-btn-secondary {
+	padding: 0.85rem 2rem;
+	background: white;
+	color: #c9a961;
+	border-radius: 8px;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.95rem;
+	border: 1.5px solid #c9a961;
+	transition: all 0.25s ease;
+}
+
+.not-found-btn-secondary:hover {
+	background: #fdf9f1;
+	transform: translateY(-2px);
+}

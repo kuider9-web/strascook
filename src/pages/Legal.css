@@ -1,0 +1,88 @@
+.legal-page {
+	min-height: 60vh;
+	background: #faf8f5;
+	padding: 3rem 2rem;
+}
+
+.legal-content {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.legal-back {
+	display: inline-block;
+	color: #c9a961;
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 500;
+	margin-bottom: 2rem;
+	transition: color 0.2s;
+}
+
+.legal-back:hover {
+	color: #b89650;
+}
+
+.legal-title {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 2.2rem;
+	font-weight: 300;
+	color: #1a1208;
+	letter-spacing: 2px;
+	margin: 0 0 0.5rem 0;
+	padding-bottom: 1rem;
+	border-bottom: 2px solid #c9a961;
+}
+
+.legal-nav {
+	display: flex;
+	gap: 1rem;
+	margin: 1.5rem 0 2.5rem;
+	flex-wrap: wrap;
+}
+
+.legal-nav a {
+	padding: 0.5rem 1.2rem;
+	border-radius: 20px;
+	border: 1.5px solid #ddd;
+	color: #666;
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 500;
+	transition: all 0.2s;
+}
+
+.legal-nav a:hover {
+	border-color: #c9a961;
+	color: #c9a961;
+}
+
+.legal-nav a.active {
+	background: linear-gradient(135deg, #c9a961, #b89650);
+	color: white;
+	border-color: #c9a961;
+}
+
+.legal-section {
+	margin-bottom: 2rem;
+	padding: 1.5rem;
+	background: white;
+	border-radius: 8px;
+	border-left: 3px solid #c9a961;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.legal-section h2 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 1.1rem;
+	font-weight: 500;
+	color: #1a1208;
+	margin: 0 0 0.8rem 0;
+}
+
+.legal-section p {
+	color: #555;
+	font-size: 0.95rem;
+	line-height: 1.8;
+	margin: 0;
+}

@@ -1,0 +1,514 @@
+/* ========================================
+   VARIABLES CSS (COULEURS ACCENT)
+   ======================================== */
+:root {
+	--accent-color: #c9a961;
+	--accent-hover: #b89650;
+	--accent-light: #e5d4a6;
+	--black: #000000;
+	--dark-gray: #333333;
+	--medium-gray: #666666;
+	--light-gray: #f5f5f5;
+	--border-color: #ddd;
+	--shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
+	--shadow-md: 0 8px 20px rgba(0, 0, 0, 0.18);
+	--shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes drawLine {
+	from {
+		width: 0;
+	}
+	to {
+		width: 100%;
+	}
+}
+
+/* ========================================
+   PAGE PRINCIPALE
+   ======================================== */
+.page-reservation {
+	background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+	padding: 3rem 2rem;
+	min-height: 100vh;
+}
+
+/* ========================================
+   MESSAGE DE CONFIRMATION
+   ======================================== */
+.confirmation-message {
+	background: linear-gradient(135deg, #27ae60, #229954);
+	color: white;
+	padding: 1.5rem;
+	border-radius: 12px;
+	margin-bottom: 2rem;
+	text-align: center;
+	white-space: pre-line;
+	font-weight: 500;
+	box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+	animation: slideInDown 0.5s ease-out;
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@keyframes slideInDown {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ========================================
+   INTRO
+   ======================================== */
+.intro {
+	max-width: 900px;
+	margin: 0 auto 3rem auto;
+	animation: slideInLeft 0.8s ease-out 0.2s backwards;
+}
+
+.intro h2 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 2.5rem;
+	font-weight: 300;
+	letter-spacing: 2px;
+	color: var(--black);
+	margin: 0 0 2rem 0;
+	position: relative;
+	padding-bottom: 1rem;
+}
+
+.intro h2::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 80px;
+	height: 3px;
+	background: linear-gradient(
+		to right,
+		var(--accent-color),
+		var(--accent-light)
+	);
+	border-radius: 2px;
+	animation: drawLine 0.8s ease-out 0.5s backwards;
+}
+
+.intro p {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 1rem;
+	font-weight: 300;
+	letter-spacing: 0.3px;
+	line-height: 1.8;
+	color: var(--dark-gray);
+	margin-bottom: 1.5rem;
+}
+
+.intro p:last-child {
+	font-weight: 500;
+	color: var(--black);
+	padding: 1.2rem;
+	background: linear-gradient(135deg, #ffffff, #f8f9fa);
+	border-left: 4px solid var(--accent-color);
+	border-radius: 4px;
+	box-shadow: var(--shadow-sm);
+	line-height: 1.6;
+}
+
+/* ========================================
+   RÉCAPITULATIF PANIER
+   ======================================== */
+.panier-recap {
+	background: white;
+	padding: 2rem 3rem;
+	border-radius: 8px;
+	max-width: 900px;
+	margin: 0 auto 2rem auto;
+	box-shadow: var(--shadow-md);
+	position: relative;
+	overflow: hidden;
+	animation: scaleIn 0.8s ease-out 0.4s backwards;
+}
+
+.panier-recap::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: linear-gradient(
+		90deg,
+		var(--accent-color),
+		var(--accent-light),
+		var(--accent-color)
+	);
+}
+
+.panier-recap h3 {
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 1.4rem;
+	font-weight: 400;
+	letter-spacing: 1px;
+	color: var(--black);
+	margin: 0 0 1.5rem 0;
+}
+
+.panier-recap ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.panier-recap-item {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.8rem 0;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.panier-recap-item:last-child {
+	border-bottom: none;
+}
+
+.panier-recap-item img {
+	width: 50px;
+	height: 50px;
+	border-radius: 6px;
+	object-fit: cover;
+}
+
+.panier-recap-nom {
+	flex: 1;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--dark-gray);
+}
+
+.panier-recap-quantite {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.9rem;
+	color: var(--medium-gray);
+}
+
+.panier-recap-prix {
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--accent-color);
+	min-width: 70px;
+	text-align: right;
+}
+
+.panier-recap-total {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 1.2rem;
+	padding-top: 1.2rem;
+	border-top: 2px solid var(--accent-color);
+	font-family: var(--font-title, "Playfair Display", "Georgia", serif);
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: var(--black);
+}
+
+/* ========================================
+   FORMULAIRE
+   ======================================== */
+form {
+	background: white;
+	padding: 3rem;
+	border-radius: 8px;
+	max-width: 900px;
+	margin: 0 auto;
+	box-shadow: var(--shadow-md);
+	position: relative;
+	overflow: hidden;
+	animation: scaleIn 0.8s ease-out 0.4s backwards;
+}
+
+form::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 5px;
+	background: linear-gradient(
+		90deg,
+		var(--accent-color),
+		var(--accent-light),
+		var(--accent-color)
+	);
+}
+
+form label {
+	display: block;
+	margin-bottom: 1.5rem;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--dark-gray);
+	letter-spacing: 0.3px;
+	transition: color 0.3s ease;
+}
+
+form label:focus-within {
+	color: var(--accent-color);
+}
+
+form input,
+form select,
+form textarea {
+	width: 100%;
+	padding: 0.9rem 1.2rem;
+	margin-top: 0.5rem;
+	border: 2px solid var(--border-color);
+	border-radius: 6px;
+	box-sizing: border-box;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 0.95rem;
+	color: var(--dark-gray);
+	background-color: white;
+	transition: all 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+	outline: none;
+	border-color: var(--accent-color);
+	box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.1);
+	transform: translateY(-2px);
+}
+
+form input:hover,
+form select:hover,
+form textarea:hover {
+	border-color: var(--accent-hover);
+}
+
+form textarea {
+	height: 120px;
+	resize: vertical;
+	line-height: 1.6;
+}
+
+form select {
+	cursor: pointer;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c9a961' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 1rem center;
+	background-size: 12px;
+	appearance: none;
+	padding-right: 3rem;
+}
+
+.ligne {
+	display: flex;
+	gap: 2rem;
+	margin-bottom: 0;
+}
+
+.ligne label {
+	flex: 1;
+	margin-bottom: 1.5rem;
+}
+
+.slot-ok {
+	display: block;
+	margin-top: 0.4rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #27ae60;
+}
+
+.slot-warning {
+	display: block;
+	margin-top: 0.4rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #c0392b;
+}
+
+form button {
+	width: 100%;
+	background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+	color: white;
+	padding: 1.2rem 2rem;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-family: var(--font-text, "Inter", Arial, sans-serif);
+	font-size: 1.1rem;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	transition: all 0.4s ease;
+	box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+	position: relative;
+	overflow: hidden;
+	margin-top: 1rem;
+}
+
+form button::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.3);
+	transform: translate(-50%, -50%);
+	transition:
+		width 0.6s ease,
+		height 0.6s ease;
+}
+
+form button:hover::before {
+	width: 400px;
+	height: 400px;
+}
+
+form button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+}
+
+form button:active {
+	transform: translateY(-1px);
+}
+
+form button:focus {
+	outline: 3px solid var(--accent-light);
+	outline-offset: 3px;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+	.page-reservation {
+		padding: 2rem 1rem;
+	}
+
+	.intro {
+		text-align: center;
+	}
+
+	.intro h2 {
+		font-size: 1.8rem;
+	}
+
+	.intro h2::after {
+		left: 50%;
+		transform: translateX(-50%);
+		width: 60px;
+	}
+
+	.intro p:last-child {
+		text-align: left;
+	}
+
+	form {
+		padding: 2rem 1.5rem;
+	}
+
+	.ligne {
+		flex-direction: column;
+		gap: 0;
+	}
+}
+
+@media (max-width: 480px) {
+	.intro h2 {
+		font-size: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.intro h2::after {
+		width: 50px;
+		height: 2px;
+	}
+
+	.intro p {
+		font-size: 0.9rem;
+	}
+
+	form {
+		padding: 1.5rem 1rem;
+	}
+
+	form label {
+		font-size: 0.9rem;
+	}
+
+	form input,
+	form select,
+	form textarea {
+		padding: 0.75rem 0.9rem;
+		font-size: 0.85rem;
+	}
+
+	form button {
+		padding: 0.9rem 1.2rem;
+		font-size: 0.95rem;
+	}
+
+	.panier-recap {
+		padding: 1.5rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms;
+		transition-duration: 0.01ms;
+	}
+}

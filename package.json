@@ -15,12 +15,11 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"@emotion/react": "latest",
-		"@emotion/styled": "latest",
 		"@mui/icons-material": "latest",
-		"@mui/material": "latest",
 		"react": "latest",
+		"react-calendly": "^4.4.0",
 		"react-dom": "latest",
+		"react-icons": "^5.5.0",
 		"react-router-dom": "^7.12.0"
 	},
 	"devDependencies": {
