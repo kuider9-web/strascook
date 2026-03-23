@@ -14,7 +14,7 @@ function Menu() {
 
 	useEffect(() => {
 		setLoading(true);
-		fetch("https://api-strascook.vercel.app/items")
+		fetch("/data.json")
 			.then((res) => {
 				if (!res.ok) {
 					throw new Error("Erreur lors du chargement des menus");

@@ -53,7 +53,7 @@ const Galerie = () => {
 			setLoading(true);
 
 			// 1. Récupère les plats de l'API
-			const response = await fetch("https://api-strascook.vercel.app/items");
+			const response = await fetch("/data.json");
 
 			if (!response.ok) {
 				throw new Error("Erreur lors de la récupération des données");
@@ -65,7 +65,7 @@ const Galerie = () => {
 			// Extraire tous les plats de l'API
 			const apiDishes: Dish[] = [];
 			for (const menu of data) {
-				apiDishes.push(...menu.entrees, ...menu.plats, ...menu.desserts);
+				apiDishes.push(...(menu.entrees || []), ...menu.plats, ...(menu.desserts || []));
 			}
 
 			// 2. Récupère les plats personnalisés du chef

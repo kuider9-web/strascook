@@ -51,7 +51,7 @@ const KEYS = {
 // Récupérer plats de l'API
 export const fetchApiDishes = async (): Promise<ApiDish[]> => {
 	try {
-		const response = await fetch("https://api-strascook.vercel.app/items");
+		const response = await fetch("/data.json");
 		if (!response.ok) throw new Error("Erreur API");
 
 		const data: ApiMenu[] = await response.json();
